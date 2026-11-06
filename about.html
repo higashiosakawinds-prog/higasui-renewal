@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ひがすい 団体紹介</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&family=Kaushan+Script&family=Rubik+Dirt&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap">
+<style>
+/* =========================================================
+   ひがすい 団体紹介
+   トップと同じ決まりごと：
+   ・色：ロゴの青と紺が軸。土台はうすい水色。黄色は手書き文字とアイコンの塗りだけ、朱色は申し込みだけ。
+   ・文字：日本語は Zen Kaku Gothic New。数字と英字は Jost。大きな英字は Rubik Dirt、添えの英字は Kaushan Script。
+   ・言葉を見せるときは白い帯に載せる。写真は太い紺の角丸の枠。
+   ========================================================= */
+:root {
+  color-scheme: light;
+  --mint: #E3F1F2;
+  --sky: #8ACBD7;
+  --blue: #4874B5;
+  --navy: #0B132E;
+  --sun: #F2C230;
+  --coral: #E1553C;
+  --pink: #FBE4DF;
+  --paper: #FFFDF7;
+  --soft: #4B5568;
+  --line: rgba(11, 19, 46, .14);
+  --jp: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  --en: 'Jost', 'Zen Kaku Gothic New', sans-serif;
+  --dirt: 'Rubik Dirt', 'Jost', sans-serif;
+  --hand: 'Kaushan Script', cursive;
+  --bounce: cubic-bezier(.3, 1.5, .5, 1);
+  --ease: cubic-bezier(.2, .8, .2, 1);
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 82px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--mint);
+  color: var(--navy);
+  font-family: var(--jp);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.8;
+  letter-spacing: .04em;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+.wrap {
+  max-width: 1080px;
+  margin-inline: auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+.narrow { max-width: 820px; }
+
+/* ---------- 共通パーツ（トップと同じ） ---------- */
+.big-en { display: block; font-family: var(--dirt); font-weight: 400; line-height: .9; letter-spacing: .02em; color: #fff; white-space: nowrap; }
+.hand { font-family: var(--hand); color: var(--sun); font-weight: 400; letter-spacing: 0; }
+.pill-btn {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  width: min(100%, 340px); margin-inline: auto; padding: 10px 10px 10px 28px;
+  background: var(--navy); color: #fff; border: 0; border-radius: 999px;
+  text-decoration: none; font-weight: 700; font-size: 16px; line-height: 1.5; text-align: left; cursor: pointer;
+  transition: translate .2s var(--ease), box-shadow .2s;
+}
+.pill-btn::after {
+  content: ""; flex: none; width: 46px; height: 46px; border-radius: 50%;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 5l7 7-7 7' fill='none' stroke='%230B132E' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 22px no-repeat;
+  transition: translate .25s var(--bounce);
+}
+.pill-btn:hover { translate: 0 -2px; box-shadow: 0 8px 18px rgba(11, 19, 46, .2); }
+.pill-btn:hover::after { translate: 5px 0; }
+.pill-btn.go { background: var(--coral); }
+.ic { width: 52px; height: 52px; color: var(--navy); flex: none; }
+.ic path[opacity] { fill: var(--sun); opacity: 1; }
+
+/* セクションの見出し：英字＋手書き＋日本語 */
+section { padding-block: 52px; }
+.sec-head { position: relative; margin-bottom: 28px; }
+.sec-head .en { display: inline-block; font-family: var(--en); font-weight: 700; font-size: 40px; letter-spacing: .02em; line-height: 1; }
+.sec-head .hand { position: relative; display: inline-block; top: -16px; margin-left: 8px; font-size: 32px; line-height: 1; rotate: -8deg; white-space: nowrap; }
+.sec-head h2 { margin: 10px 0 0; font-size: 22px; font-weight: 900; letter-spacing: .1em; line-height: 1.5; }
+.sec-head p { margin: 8px 0 0; color: var(--soft); font-size: 15px; }
+
+/* ---------- ロゴのタブとメニュー ---------- */
+.logo-tab {
+  position: absolute; z-index: 9; top: 0; left: 0;
+  padding: 12px 22px 14px max(16px, env(safe-area-inset-left, 0px));
+  background: #fff; border-bottom-right-radius: 26px;
+}
+.logo-tab img { width: 150px; }
+.menu {
+  position: fixed; z-index: 30;
+  top: calc(12px + env(safe-area-inset-top, 0px)); right: max(12px, env(safe-area-inset-right, 0px));
+  display: grid; place-content: center; gap: 6px; width: 54px; height: 54px; padding: 0;
+  background: #262626; border: 0; border-radius: 16px; cursor: pointer;
+}
+.menu i { display: block; width: 24px; height: 3px; border-radius: 2px; background: #fff; transition: width .25s var(--bounce); }
+.menu:hover i:nth-child(2) { width: 16px; }
+
+/* =========================================================
+   追いかけてくる目次（ページの頭の目次が見えなくなったら、上に出てくる）
+   ========================================================= */
+.toc {
+  position: fixed; z-index: 28; top: 0; left: 0; right: 0;
+  padding: calc(21px + env(safe-area-inset-top, 0px)) calc(78px + env(safe-area-inset-right, 0px)) 12px max(12px, env(safe-area-inset-left, 0px));
+  background: rgba(227, 241, 242, .94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  box-shadow: 0 6px 16px rgba(11, 19, 46, .08);
+  translate: 0 -110%; visibility: hidden;
+  transition: translate .4s var(--ease), visibility 0s .4s;
+}
+.toc.show { translate: 0 0; visibility: visible; transition: translate .4s var(--ease), visibility 0s; }
+.toc ul { display: flex; gap: 8px; margin: 0; padding: 0; list-style: none; overflow-x: auto; scrollbar-width: none; }
+.toc ul::-webkit-scrollbar { display: none; }
+.toc a { display: block; flex: none; padding: 8px 15px; border-radius: 999px; background: #fff; text-decoration: none; font-size: 14px; font-weight: 700; line-height: 1.4; white-space: nowrap; transition: background-color .25s, color .25s; }
+.toc a.on { background: var(--navy); color: #fff; }
+.toc a.to-apply { background: var(--coral); color: #fff; }
+.toc a.to-apply.on { box-shadow: 0 0 0 3px var(--navy) inset; }
+
+/* =========================================================
+   ページの頭
+   ========================================================= */
+.page-hero { position: relative; padding: 108px 0 0; background: var(--mint); overflow: hidden; }
+.crumb { margin: 0 0 18px; font-size: 12px; font-weight: 700; color: var(--soft); }
+.crumb a { text-decoration: none; }
+.crumb span { margin: 0 6px; }
+.page-hero .big-en { font-size: clamp(60px, 17vw, 170px); margin-bottom: -.38em; }
+.page-hero .inner > div { min-width: 0; }
+.page-hero .hand { position: relative; display: block; margin-left: 4px; font-size: 40px; rotate: -6deg; transform-origin: left; }
+.page-hero h1 { position: relative; margin: 2px 0 0; font-size: clamp(30px, 8.6vw, 52px); font-weight: 900; letter-spacing: .08em; line-height: 1.35; }
+.page-hero .lead { position: relative; margin: 16px 0 0; display: grid; justify-items: start; gap: 6px; font-weight: 700; font-size: 16px; line-height: 1.5; letter-spacing: .08em; }
+.page-hero .lead span { padding: 4px 12px; background: #fff; white-space: nowrap; }
+
+/* ページ内の目次 */
+.jump { display: flex; gap: 8px; margin: 26px 0 0; padding: 0 0 6px; list-style: none; overflow-x: auto; scrollbar-width: none; }
+.jump::-webkit-scrollbar { display: none; }
+.jump a { display: block; flex: none; padding: 7px 16px; border-radius: 999px; background: #fff; text-decoration: none; font-size: 14px; font-weight: 700; white-space: nowrap; transition: background-color .2s, color .2s; }
+.jump a:hover { background: var(--navy); color: #fff; }
+.jump .to-apply { background: var(--coral); color: #fff; }
+
+/* =========================================================
+   相談窓口とフッター
+   ========================================================= */
+.ask { background: var(--mint); text-align: center; padding-block: 56px; }
+.ask h2 { margin: 0 0 6px; font-size: 20px; font-weight: 900; letter-spacing: .1em; }
+.ask > .wrap > p { margin: 0 0 22px; font-size: 14px; color: var(--soft); }
+.ask-list { display: grid; gap: 10px; max-width: 560px; margin: 0 auto; }
+.ask-item { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: #fff; border: 0; border-radius: 20px; text-align: left; text-decoration: none; cursor: pointer; }
+.ask-item .ic { width: 40px; height: 40px; }
+.ask-item b { display: block; font-size: 16px; font-weight: 900; letter-spacing: .06em; line-height: 1.4; }
+.ask-item small { display: block; font-family: var(--en); font-size: 13px; color: var(--soft); letter-spacing: .02em; word-break: break-all; }
+.ask-item .copy { margin-left: auto; flex: none; padding: 6px 12px; border: 0; border-radius: 999px; background: var(--navy); color: #fff; font-size: 12px; font-weight: 700; cursor: pointer; }
+footer { padding-block: 44px 120px; background: #fff; font-size: 14px; }
+footer .logo { width: 200px; }
+footer nav ul { list-style: none; margin: 22px 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 16px; font-weight: 700; }
+footer nav a { text-decoration: none; }
+footer .place { margin: 14px 0 18px; color: var(--soft); line-height: 1.8; }
+footer small { display: block; font-family: var(--en); letter-spacing: .06em; color: var(--soft); }
+
+/* 申し込みボタン（スマホは画面下に固定。フォームが見えている間は隠す） */
+.fixed-cta {
+  position: fixed; z-index: 25; overflow: hidden; display: block; text-align: center; text-decoration: none;
+  left: max(16px, env(safe-area-inset-left, 0px)); right: max(16px, env(safe-area-inset-right, 0px));
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  padding: 17px; border-radius: 999px; background: var(--coral); color: #fff;
+  box-shadow: 0 8px 22px rgba(11, 19, 46, .3); font-weight: 900; font-size: 17px; letter-spacing: .14em;
+  transition: translate .4s var(--ease), opacity .3s;
+}
+.fixed-cta.away { translate: 0 140%; opacity: 0; pointer-events: none; }
+.toast { position: fixed; z-index: 40; left: 50%; bottom: calc(86px + env(safe-area-inset-bottom, 0px)); translate: -50% 0; width: max-content; max-width: calc(100vw - 32px); margin: 0; padding: .7em 1.1em; background: var(--navy); color: #fff; border-radius: 10px; font-size: 14px; line-height: 1.5; }
+
+@media (min-width: 760px) {
+  section { padding-block: 90px; }
+  html { scroll-padding-top: 104px; }
+  .toc { padding-top: calc(34px + env(safe-area-inset-top, 0px)); padding-bottom: 16px; padding-right: calc(110px + env(safe-area-inset-right, 0px)); }
+  .toc ul { justify-content: center; }
+  .logo-tab { padding: 18px 30px 20px max(28px, env(safe-area-inset-left, 0px)); border-bottom-right-radius: 34px; }
+  .logo-tab img { width: 200px; }
+  .menu { top: calc(20px + env(safe-area-inset-top, 0px)); right: max(24px, env(safe-area-inset-right, 0px)); width: 64px; height: 64px; }
+  .page-hero { padding-top: 140px; }
+  .page-hero .lead { font-size: 18px; }
+  .jump { flex-wrap: wrap; overflow: visible; }
+  .sec-head .en { font-size: 52px; }
+  .sec-head .hand { font-size: 40px; top: -22px; }
+  .sec-head h2 { font-size: 26px; }
+  footer .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+  footer nav ul { grid-template-columns: repeat(3, 1fr); margin-top: 0; }
+  .fixed-cta { left: auto; width: 260px; right: max(24px, env(safe-area-inset-right, 0px)); bottom: 24px; }
+}
+
+/* =========================================================
+   団体紹介ページだけの部品
+   ========================================================= */
+
+/* ページの頭：指揮者が東大阪のまちを指揮している */
+.scene { position: relative; container-type: inline-size; aspect-ratio: 100 / 82; margin-top: 6px; }
+.scene .paint { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 72%; max-width: none; object-fit: cover; object-position: 60% 72%; clip-path: polygon(0 100%, 0 26%, 12% 18%, 26% 24%, 40% 12%, 54% 18%, 62% 6%, 66% 5%, 72% 9%, 86% 17%, 100% 13%, 100% 100%); }
+/* 3人：谷（左）・松村（まん中・いちばん前）・段野（右、ふたりの方へタクトを振る）。足元は町並みで隠れる */
+.scene .who { position: absolute; left: calc(var(--x) * 1cqw); bottom: calc(var(--b) * 1cqw); width: calc(var(--w) * 1cqw); max-width: none; filter: drop-shadow(0 1cqw 1.6cqw rgba(11, 19, 46, .28)); }
+.scene .tani     { --x: 3; --b: 7; --w: 28; z-index: 2; }
+.scene .matsu    { --x: 29; --b: 7; --w: 42; z-index: 3; }
+.scene .danno    { --x: 60; --b: 7; --w: 40; z-index: 2; }
+.scene .who-tag { position: absolute; z-index: 6; left: calc(var(--tx) * 1cqw); top: calc(var(--ty) * 1cqw); margin: 0; padding: .4em .8em .45em; background: #fff; font-size: 3cqw; font-weight: 900; letter-spacing: .06em; line-height: 1.3; white-space: nowrap; rotate: var(--tr, -3deg); box-shadow: 0 2px 6px rgba(11, 19, 46, .16); }
+.scene .who-tag small { display: block; font-size: .78em; font-weight: 700; color: var(--soft); }
+.scene .t-tani  { --tx: 3;  --ty: 20; --tr: -4deg; }
+.scene .t-matsu { --tx: 39; --ty: 7;  --tr: 2deg; }
+.scene .t-danno { --tx: 70; --ty: 14; --tr: -3deg; }
+.scene .town { position: absolute; z-index: 3; left: -36%; bottom: -14%; width: 172%; max-width: none; }
+.scene .edge { position: absolute; z-index: 4; left: -4%; right: -4%; bottom: -1px; height: 6cqw; background: url(img/paper-white.webp) center top / 100% 100% no-repeat; }
+.scene .edge::after { content: ""; position: absolute; inset: 45% 0 0; background: #fff; }
+
+/* =========================================================
+   私たちの想い
+   ========================================================= */
+.mission { background: #fff; }
+.statement { margin: 0 0 30px; display: grid; justify-items: start; gap: 8px; font-weight: 900; font-size: 19px; line-height: 1.5; letter-spacing: .08em; }
+.statement span { padding: 5px 14px; background: var(--mint); }
+.statement em { font-style: normal; color: var(--blue); }
+.cycle { display: block; width: min(100%, 360px); height: auto; margin: 0 auto 26px; overflow: visible; }
+.cycle text { font-family: var(--jp); font-weight: 900; }
+.cycle .flow-line { fill: none; stroke: var(--navy); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 2 9; }
+@media (prefers-reduced-motion: no-preference) { .cycle .flow-line { animation: flow 1.2s linear infinite; } }
+@keyframes flow { to { stroke-dashoffset: -22; } }
+.mission .body { max-width: 36em; margin: 0 0 30px; font-size: 15px; line-height: 2; }
+.musik { position: relative; padding: 28px 22px 26px; margin-bottom: 34px; background: var(--navy); color: #fff; border-radius: 28px; overflow: hidden; }
+.musik .hand { display: block; font-size: 30px; line-height: 1; rotate: -4deg; transform-origin: left; }
+.musik h3 { margin: 10px 0 10px; font-size: 21px; font-weight: 900; letter-spacing: .08em; line-height: 1.5; }
+.musik p { margin: 0; font-size: 15px; line-height: 1.95; opacity: .92; }
+.pillars { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.pillars li { display: grid; grid-template-columns: 52px 1fr; gap: 14px; align-items: start; padding: 18px; background: var(--mint); border-radius: 22px; }
+.pillars b { display: block; font-size: 16px; font-weight: 900; letter-spacing: .06em; line-height: 1.5; }
+.pillars small { display: block; margin-top: 4px; font-size: 13px; color: var(--soft); line-height: 1.75; }
+
+/* =========================================================
+   ひがすいの今（数字）
+   ========================================================= */
+.now { background: var(--blue); color: #fff; overflow: hidden; }
+.now .sec-head .en { color: #fff; }
+.now .sec-head p { color: #fff; opacity: .9; }
+.nums { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.nums li { position: relative; padding: 22px 22px 20px; background: rgba(255, 255, 255, .1); border-radius: 24px; }
+.nums .pre { display: block; font-size: 14px; font-weight: 700; opacity: .9; }
+.nums b { display: block; margin: 4px 0 2px; font-family: var(--en); font-size: 64px; font-weight: 500; line-height: 1; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.nums b small { font-family: var(--jp); font-size: 20px; font-weight: 900; margin-left: 4px; }
+.nums .post { display: block; font-size: 16px; font-weight: 900; letter-spacing: .06em; }
+.nums .from { position: absolute; right: 18px; top: 18px; display: grid; justify-items: center; padding: 8px 12px; border-radius: 16px; background: var(--sun); color: var(--navy); line-height: 1.2; rotate: 6deg; }
+.nums .from small { font-size: 11px; font-weight: 700; }
+.nums .from strong { font-family: var(--en); font-size: 26px; font-weight: 500; }
+
+/* =========================================================
+   活動
+   ========================================================= */
+.activity { background: var(--mint); }
+.acts-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.acts-list li { display: grid; grid-template-columns: 48px 1fr; gap: 14px; align-items: center; padding: 16px 18px; background: #fff; border-radius: 20px; }
+.acts-list .ic { width: 48px; height: 48px; }
+.acts-list b { display: block; font-size: 16px; font-weight: 900; letter-spacing: .06em; line-height: 1.5; }
+.acts-list small { display: block; font-size: 13px; color: var(--soft); line-height: 1.7; }
+.policy { margin: 18px 0 0; font-size: 13px; color: var(--soft); line-height: 1.8; }
+
+/* =========================================================
+   運営メンバー
+   指揮者のふたりは「団の顔」として大きく。写真は紺の台からはみ出す。
+   ========================================================= */
+.team { background: #fff; overflow: hidden; }
+.team-lead { margin: -8px 0 10px; font-size: 16px; font-weight: 900; letter-spacing: .08em; line-height: 1.7; }
+.team-note { margin: 0 0 6px; font-size: 12px; color: var(--soft); }
+.conds { display: grid; gap: 34px; }
+.cond { position: relative; isolation: isolate; padding: 0 22px 28px; color: #fff; }
+.cond-base { position: absolute; z-index: -1; inset: 150px 0 0 0; overflow: hidden; border-radius: 34px; background: var(--navy); }
+.cond-base span { position: absolute; left: -6px; top: 18px; font-family: var(--dirt); font-size: 82px; line-height: .9; color: rgba(255, 255, 255, .07); white-space: nowrap; }
+.cond-ph { position: relative; margin: 0 -8px 0 auto; width: 80%; }
+.cond-ph::before { content: ""; position: absolute; z-index: -1; right: 4%; bottom: 8%; width: 82%; aspect-ratio: 1; border-radius: 50%; background: var(--c); }
+.cond-ph img { position: relative; width: 100%; height: auto; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .35)); }
+.cond-ph.empty { aspect-ratio: 1 / 1.05; display: grid; place-items: end center; }
+.cond-ph.empty svg { width: 62%; height: auto; margin-bottom: 14%; color: var(--navy); opacity: .45; }
+.cond-ph.empty figcaption { position: absolute; left: 50%; bottom: 10%; translate: -50% 0; padding: 2px 12px; border-radius: 999px; background: #fff; color: var(--navy); font-size: 12px; font-weight: 700; white-space: nowrap; }
+.cond-txt { position: relative; margin-top: -14px; }
+.cond .role { display: inline-block; padding: 3px 14px; border-radius: 999px; background: var(--c); color: var(--navy); font-size: 13px; font-weight: 900; letter-spacing: .1em; }
+.cond-name { margin: 10px 0 0; font-size: 34px; font-weight: 900; letter-spacing: .12em; line-height: 1.25; }
+.cond-name small { display: block; margin-top: 4px; font-size: 12px; font-weight: 700; letter-spacing: .2em; opacity: .75; }
+.cond .part { display: inline-block; margin-top: 10px; padding: 2px 12px; border: 1.5px solid rgba(255, 255, 255, .5); border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: .06em; }
+.cond .msg { margin: 14px 0 0; font-size: 14px; line-height: 1.9; opacity: .9; }
+
+.staff { list-style: none; margin: 30px 0 0; padding: 0; display: grid; gap: 12px; }
+.staff > li { display: grid; grid-template-columns: 84px 1fr; gap: 16px; align-items: center; padding: 16px 18px; background: var(--mint); border-radius: 24px; }
+.staff .av { position: relative; width: 84px; height: 84px; border-radius: 50%; background: var(--c); overflow: hidden; display: grid; place-items: end center; }
+.staff .av svg { width: 70%; height: auto; margin-bottom: 4%; color: var(--navy); opacity: .45; }
+.staff .role { display: inline-block; padding: 1px 10px; border-radius: 999px; background: var(--navy); color: #fff; font-size: 11px; font-weight: 900; letter-spacing: .08em; }
+.staff .role.gm { background: var(--coral); }
+.staff .name { display: block; margin-top: 4px; font-size: 19px; font-weight: 900; letter-spacing: .1em; line-height: 1.35; }
+.staff .name small { margin-left: 8px; font-size: 11px; font-weight: 700; letter-spacing: .1em; color: var(--soft); }
+.staff .part { display: inline-block; margin-top: 2px; font-size: 12px; font-weight: 700; color: var(--blue); }
+.staff .msg { grid-column: 1 / -1; margin: 0; font-size: 13px; line-height: 1.8; color: var(--soft); }
+/* GMは少し大きく */
+.staff > .gm-card { grid-template-columns: 150px 1fr; gap: 12px 16px; padding: 34px 20px 22px; background: var(--pink); }
+.gm-card .av { width: 150px; height: 150px; background: #fff; }
+/* 写真があるときは、顔が丸の上にはみ出す */
+.staff .av.photo { overflow: visible; background: none; }
+.staff .av.photo::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #fff; }
+.staff .av.photo img { position: absolute; left: 50%; bottom: 0; translate: -50% 0; width: 100%; height: auto; max-width: none; border-radius: 0 0 999px 999px; }
+@media (prefers-reduced-motion: no-preference) { .staff .in .av.photo img, .staff .av.photo img { transition: translate .35s var(--bounce); } .staff .gm-card:hover .av.photo img { translate: -50% -6px; } }
+.gm-card .name { font-size: 26px; }
+.gm-card .name small { display: block; margin: 2px 0 0; white-space: nowrap; }
+.gm-card .duty { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 4px 0 0; padding: 0; }
+.gm-card .duty li { padding: 3px 14px; border-radius: 999px; background: var(--navy); color: #fff; font-size: 13px; font-weight: 900; letter-spacing: .12em; }
+.gm-card .lead-msg { margin-top: 4px; font-size: 17px; font-weight: 900; color: var(--navy); letter-spacing: .06em; line-height: 1.6; }
+.gm-card .msg { color: var(--navy); font-size: 14px; }
+.gm-card .bio { font-size: 12px; color: var(--soft); }
+@media (prefers-reduced-motion: no-preference) {
+  .cond.in .cond-ph img, .cond.in .cond-ph svg { animation: cond-up 1s var(--bounce) .1s backwards; }
+  .cond.in .cond-ph::before { animation: rv-pop .7s var(--bounce) backwards; }
+  .cond.in .cond-name { animation: rv-wipe .8s var(--ease) .35s backwards; }
+}
+@keyframes cond-up { from { translate: 0 18%; } }
+
+/* =========================================================
+   パート紹介（募集ボード）
+   人数のデータから「募集中・急募・募集終了」を自動で出す。データは下の <script> の PARTS。
+   ========================================================= */
+.parts { background: var(--mint); }
+.recruit-sum { display: flex; flex-wrap: wrap; gap: 8px; margin: -6px 0 24px; }
+.recruit-sum span { padding: 4px 14px; border-radius: 999px; background: #fff; font-size: 13px; font-weight: 900; letter-spacing: .06em; }
+.recruit-sum .urgent-sum { background: var(--coral); color: #fff; }
+.sections { display: grid; gap: 18px; }
+.sec-card { padding: 20px 16px 18px; background: #fff; border-radius: 26px; }
+.sec-card header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+.sec-card .kanji { display: grid; place-items: center; flex: none; width: 60px; height: 60px; border-radius: 50%; background: var(--c); color: var(--navy); font-size: 32px; font-weight: 900; line-height: 1; rotate: -6deg; }
+.sec-card h3 { margin: 0; font-size: 19px; font-weight: 900; letter-spacing: .08em; line-height: 1.3; }
+.sec-card h3 .en { display: block; font-family: var(--en); font-size: 11px; font-weight: 700; letter-spacing: .24em; color: var(--soft); }
+.part-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.part-row { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: center; padding: 12px 14px; border-radius: 16px; background: var(--mint); }
+.part-row .nm { font-size: 15px; font-weight: 900; letter-spacing: .04em; line-height: 1.4; }
+.part-row .nm small { display: block; font-size: 11px; font-weight: 700; color: var(--soft); letter-spacing: .02em; }
+.part-row .st { justify-self: end; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 900; letter-spacing: .06em; white-space: nowrap; background: var(--blue); color: #fff; }
+.part-row .seats { grid-column: 1 / -1; display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+.part-row .seats i { width: 14px; height: 14px; border-radius: 50%; background: var(--navy); }
+.part-row .seats i.open { background: #fff; box-shadow: inset 0 0 0 2px var(--blue); }
+.part-row .seats em { margin-left: 6px; font-style: normal; font-size: 12px; font-weight: 700; color: var(--blue); }
+.part-row.full { background: #EEF1F4; }
+.part-row.full .nm { color: #7D8794; }
+.part-row.full .st { background: #A7B0BB; }
+.part-row.full .seats i { background: #A7B0BB; }
+.part-row.full .seats em { color: #7D8794; }
+.part-row.urgent { background: #FFF1E6; box-shadow: inset 0 0 0 2px var(--coral); }
+.part-row.urgent .st { background: var(--coral); rotate: 6deg; }
+.part-row.urgent .seats i.open { box-shadow: inset 0 0 0 2px var(--coral); }
+.part-row.urgent .seats em { color: var(--coral); }
+@media (prefers-reduced-motion: no-preference) {
+  .part-row.urgent .st { animation: wiggle 2.6s ease-in-out 1s infinite; }
+  .in .part-row .seats i { animation: rv-pop .5s var(--bounce) backwards; animation-delay: calc(var(--n) * .05s + .2s); }
+}
+@keyframes wiggle { 0%, 70%, 100% { rotate: 6deg; } 76% { rotate: -6deg; } 82% { rotate: 10deg; } 88% { rotate: 2deg; } }
+.parts-note { margin: 16px 0 0; font-size: 13px; color: var(--soft); line-height: 1.8; }
+
+/* 定款と見学 */
+.closing { background: #fff; padding-block: 56px 70px; }
+.closing .wrap { display: grid; gap: 14px; }
+.doc-link { display: flex; align-items: center; gap: 14px; padding: 18px 18px; background: var(--mint); border: 0; border-radius: 22px; text-align: left; cursor: pointer; }
+.doc-link b { display: block; font-size: 16px; font-weight: 900; letter-spacing: .06em; }
+.doc-link small { display: block; font-size: 13px; color: var(--soft); line-height: 1.6; }
+.doc-link::after { content: ""; flex: none; margin-left: auto; width: 36px; height: 36px; border-radius: 50%; background: var(--navy) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 5l7 7-7 7' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat; }
+.go-join { display: grid; justify-items: center; gap: 6px; padding: 34px 20px 30px; background: var(--navy); color: #fff; border-radius: 28px; text-align: center; }
+.go-join .hand { font-size: 36px; line-height: 1; rotate: -6deg; }
+.go-join h2 { margin: 6px 0 4px; font-size: 26px; font-weight: 900; letter-spacing: .12em; }
+.go-join p { margin: 0 0 18px; font-size: 14px; opacity: .9; }
+
+/* 画面に入ったら動く（はじめから見えている） */
+@media (prefers-reduced-motion: no-preference) {
+  .in[data-rv="rise"] { animation: rv-rise .8s var(--ease) var(--d, 0s) backwards; }
+  .in[data-rv="pop"]  { animation: rv-pop .7s var(--bounce) var(--d, 0s) backwards; }
+  .in[data-rv="wipe"] { animation: rv-wipe .7s var(--ease) var(--d, 0s) backwards; }
+  .page-hero .big-en, .page-hero .hand, .page-hero h1 { animation: rv-rise .9s var(--ease) backwards; }
+  .page-hero .hand { animation-delay: .15s; }
+  .page-hero h1 { animation-delay: .25s; }
+  .page-hero .lead span { animation: rv-wipe .7s var(--ease) .45s backwards; }
+  .page-hero .lead span:nth-child(2) { animation-delay: .57s; }
+  .scene .who { animation: conduct 1.1s var(--bounce) backwards; }
+  .scene .tani { animation-delay: .35s; }
+  .scene .matsu { animation-delay: .5s; }
+  .scene .danno { animation-delay: .65s; }
+  .scene .who-tag { animation: rv-pop .6s var(--bounce) backwards; }
+  .scene .t-tani { animation-delay: 1.1s; }
+  .scene .t-matsu { animation-delay: 1.22s; }
+  .scene .t-danno { animation-delay: 1.34s; }
+  .in .pop .face { animation: rv-peek .9s var(--bounce) var(--d, 0s) backwards; }
+}
+@keyframes rv-rise  { from { translate: 0 30px; opacity: .001; } }
+@keyframes rv-pop   { from { scale: .3; opacity: .001; } }
+@keyframes rv-wipe  { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes rv-peek  { from { translate: -50% 30%; } }
+@keyframes conduct  { from { translate: 0 30%; rotate: 6deg; } }
+
+/* PCのとき */
+@media (min-width: 760px) {
+  .page-hero .inner { display: block; max-width: 1080px; }
+  .page-hero .inner > div { max-width: 56%; }
+  .scene { aspect-ratio: 100 / 30; margin-top: -60px; }
+  .scene .paint { height: 86%; object-position: 50% 84%; }
+  .page-hero .inner > div { max-width: 48%; }
+  .scene .tani  { --x: 51; --b: 4.4; --w: 16; }
+  .scene .matsu { --x: 63; --b: 3; --w: 24; }
+  .scene .danno { --x: 77; --b: 3; --w: 23; }
+  .scene .who-tag { font-size: 1.15cqw; }
+  .scene .t-tani  { --tx: 50; --ty: -6; }
+  .scene .t-matsu { --tx: 70; --ty: -10.5; }
+  .scene .t-danno { --tx: 86; --ty: -7.6; }
+  .scene .town { left: -3%; width: 106%; bottom: -28%; }
+  .scene .edge { height: 3cqw; }
+  .mission .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 50px; align-items: start; }
+  .mission .sec-head, .pillars { grid-column: 1 / -1; }
+  .statement { font-size: 23px; }
+  .cycle { width: 100%; max-width: 420px; }
+  .pillars { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .nums { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .acts-list { grid-template-columns: repeat(2, 1fr); }
+  .conds { gap: 60px; margin-top: 10px; }
+  .cond { display: grid; grid-template-columns: 1.15fr 1fr; align-items: end; gap: 0 40px; padding: 0 56px; }
+  .cond-base { inset: 110px 0 0 0; border-radius: 44px; }
+  .cond-base span { top: auto; bottom: -10px; font-size: 170px; }
+  .cond-ph { grid-column: 2; grid-row: 1; width: 100%; margin: 0; }
+  .cond-txt { grid-column: 1; grid-row: 1; margin: 0; padding-bottom: 56px; }
+  .cond.flip { grid-template-columns: 1fr 1.15fr; }
+  .cond.flip .cond-ph { grid-column: 1; }
+  .cond.flip .cond-txt { grid-column: 2; }
+  .cond.flip .cond-base span { left: auto; right: -6px; }
+  .cond-ph.empty { width: 82%; justify-self: center; }
+  .cond-name { font-size: 52px; }
+  .cond-name small { font-size: 14px; }
+  .cond .msg { font-size: 15px; max-width: 30em; }
+  .staff { grid-template-columns: 1.7fr 1fr; gap: 18px; margin-top: 40px; align-items: start; }
+  .staff > .gm-card { grid-template-columns: 230px 1fr; gap: 12px 30px; padding: 60px 34px 30px; }
+  .gm-card .av { width: 230px; height: 230px; }
+  .gm-card .duty, .gm-card .msg { grid-column: 2; }
+  .gm-card .av { grid-row: span 5; align-self: start; margin-top: 10px; }
+  .sections { gap: 22px; }
+  .sec-card { display: grid; grid-template-columns: 170px 1fr; gap: 20px; padding: 26px 26px 24px; }
+  .sec-card header { flex-direction: column; align-items: flex-start; margin: 0; }
+  .part-list { grid-template-columns: repeat(3, 1fr); }
+  .closing .wrap { grid-template-columns: 1fr 1.4fr; align-items: stretch; }
+}
+</style>
+</head>
+<body>
+
+<a class="logo-tab" href="index.html" aria-label="東大阪吹奏楽団 トップへ"><img src="img/logo.svg" alt="東大阪吹奏楽団" width="850" height="300"></a>
+<button type="button" class="menu" data-msg="本番では、ここにメニューが開きます。" aria-label="メニュー"><i></i><i></i><i></i></button>
+
+<nav class="toc" id="toc" aria-label="このページの目次">
+  <ul>
+    <li><a href="#mission">私たちの想い</a></li>
+    <li><a href="#now">ひがすいの今</a></li>
+    <li><a href="#activity">活動</a></li>
+    <li><a href="#team">運営メンバー</a></li>
+    <li><a href="#parts">パート・募集状況</a></li>
+    <li><a class="to-apply" href="join.html#apply">見学を申し込む</a></li>
+  </ul>
+</nav>
+
+<!-- ================= ページの頭 ================= -->
+<header class="page-hero">
+  <div class="wrap inner">
+    <div>
+      <p class="crumb"><a href="index.html">トップ</a><span>›</span>ひがすいについて</p>
+      <span class="big-en" aria-hidden="true">ABOUT US</span>
+      <span class="hand" aria-hidden="true">Higasui</span>
+      <h1>ひがすいに<br>ついて</h1>
+      <p class="lead"><span>音楽を通じて、人が育ち、</span><span>その人が、まちを育てる。</span></p>
+      <ul class="jump" aria-label="このページの目次">
+        <li><a href="#mission">私たちの想い</a></li>
+        <li><a href="#now">ひがすいの今</a></li>
+        <li><a href="#activity">活動</a></li>
+        <li><a href="#team">運営メンバー</a></li>
+        <li><a href="#parts">パート・募集状況</a></li>
+        <li><a class="to-apply" href="join.html#apply">見学を申し込む</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="scene" aria-hidden="true">
+    <img class="paint" src="img/back.webp" alt="" width="1672" height="941">
+    <img class="who tani" src="img/cut-tani.webp" alt="" width="820" height="1403">
+    <img class="who matsu" src="img/cut-matsumura.webp" alt="" width="820" height="1163">
+    <img class="who danno" src="img/cut-conductor.webp" alt="" width="820" height="1098">
+    <img class="town" src="img/town.webp" alt="" width="2172" height="724">
+    <p class="who-tag t-tani">谷 将大<small>ゼネラルマネージャー</small></p>
+    <p class="who-tag t-matsu">松村 奏多<small>団長・指揮</small></p>
+    <p class="who-tag t-danno">段野 王海<small>指揮</small></p>
+    <div class="edge"></div>
+  </div>
+</header>
+
+<!-- ================= 私たちの想い ================= -->
+<section class="mission" id="mission">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="en" data-rv="wipe">MISSION</span><span class="hand" aria-hidden="true" data-rv="pop">Our wish</span>
+      <h2>私たちの想い</h2>
+    </div>
+    <div>
+      <p class="statement" data-stagger="wipe">
+        <span>音楽を通じて、<em>人</em>が育ち、</span>
+        <span>その人が、<em>地域</em>を育て、</span>
+        <span>地域がまた、新たな<em>人</em>を育てる。</span>
+      </p>
+      <p class="body">この「人と地域と音楽」の好循環を、東大阪から築いていきたい。団の中で育った子どもたちが、やがて後輩を支え、地域で活躍していく。そんなふうに、ずっと続いていく仕組みを大切にしています。</p>
+    </div>
+    <div>
+      <svg class="cycle" viewBox="0 0 320 290" role="img" aria-label="人が育ち、地域を育て、音楽がまた人を育てる、という循環の図">
+        <path class="flow-line" d="M 196 60 Q 268 88 266 168"/>
+        <path class="flow-line" d="M 228 236 Q 160 278 92 236"/>
+        <path class="flow-line" d="M 54 168 Q 52 88 124 60"/>
+        <path d="M 262 160 l 4 12 l 8 -10" fill="none" stroke="#0B132E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M 100 230 l -10 6 l 10 6" fill="none" stroke="#0B132E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M 116 56 l 10 3 l -6 9" fill="none" stroke="#0B132E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="160" cy="58" r="46" fill="#E1553C"/>
+        <circle cx="262" cy="218" r="46" fill="#4874B5"/>
+        <circle cx="58" cy="218" r="46" fill="#F2C230"/>
+        <text x="160" y="66" text-anchor="middle" font-size="26" fill="#fff">人</text>
+        <text x="262" y="226" text-anchor="middle" font-size="24" fill="#fff">地域</text>
+        <text x="58" y="226" text-anchor="middle" font-size="24" fill="#0B132E">音楽</text>
+        <text x="160" y="168" text-anchor="middle" font-size="15" fill="#4B5568">ぐるっと、</text>
+        <text x="160" y="190" text-anchor="middle" font-size="15" fill="#4B5568">好循環</text>
+      </svg>
+      <div class="musik" data-rv="rise">
+        <span class="hand" aria-hidden="true">Musikverein</span>
+        <h3>目指せ、大阪のムジークフェライン。</h3>
+        <p>ドイツやオーストリアの町には、子どもからお年寄りまでがいっしょに演奏する「ムジークフェライン（音楽協会）」が根づいています。世代をこえて、地域に長く愛される楽団。ひがすいが目指しているのは、そんな場所です。</p>
+      </div>
+    </div>
+    <ul class="pillars" data-stagger="rise">
+      <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg><div><b>世代をこえた交流と成長</b><small>子どもから大人まで、立場をこえていっしょに音楽を楽しめる場をつくります。</small></div></li>
+      <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,164a28,28,0,1,1-28-28A28,28,0,0,1,208,164ZM52,168a28,28,0,1,0,28,28A28,28,0,0,0,52,168Z" opacity="0.2"/><path d="M212.92,17.69a8,8,0,0,0-6.86-1.45l-128,32A8,8,0,0,0,72,56V166.08A36,36,0,1,0,88,196V110.25l112-28v51.83A36,36,0,1,0,216,164V24A8,8,0,0,0,212.92,17.69ZM52,216a20,20,0,1,1,20-20A20,20,0,0,1,52,216ZM88,93.75V62.25l112-28v31.5ZM180,184a20,20,0,1,1,20-20A20,20,0,0,1,180,184Z"/></svg><div><b>地域の音楽文化を受けつぐ</b><small>東大阪に根ざした音楽文化を大切に育て、次の世代へつなぎます。</small></div></li>
+      <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,113.07v53.22a8,8,0,0,1-2,5.31c-11.3,12.59-38.9,36.4-86,36.4s-74.68-23.81-86-36.4a8,8,0,0,1-2-5.31V113.07L128,160Z" opacity="0.2"/><path d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188,118.94l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,128l-43,22.93L25,96,128,41.07,231,96Z"/></svg><div><b>部活動の地域移行に応える</b><small>学校の部活動の地域移行に対応した、新しい音楽教育のしくみをつくります。</small></div></li>
+      <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M138.54,149.46C106.62,96.25,149.18,43.05,239.63,48.37,245,138.82,191.75,181.39,138.54,149.46ZM16.26,88.26c-3.8,64.61,34.21,95,72.21,72.21C111.27,122.47,80.87,84.46,16.26,88.26Z" opacity="0.2"/><path d="M247.63,47.89a8,8,0,0,0-7.52-7.52c-51.76-3-93.32,12.74-111.18,42.22-11.8,19.48-11.78,43.16-.16,65.74a71.37,71.37,0,0,0-14.17,26.95L98.33,159c7.82-16.33,7.52-33.36-1-47.49C84.09,89.73,53.62,78,15.79,80.27a8,8,0,0,0-7.52,7.52c-2.23,37.83,9.46,68.3,31.25,81.5A45.82,45.82,0,0,0,63.44,176,54.58,54.58,0,0,0,87,170.33l25,25V224a8,8,0,0,0,16,0V194.51a55.61,55.61,0,0,1,12.27-35,73.91,73.91,0,0,0,33.31,8.4,60.9,60.9,0,0,0,31.83-8.86C234.89,141.21,250.67,99.65,247.63,47.89ZM86.06,146.74l-24.41-24.4a8,8,0,0,0-11.31,11.31l24.41,24.41c-9.61,3.18-18.93,2.39-26.94-2.46C32.47,146.31,23.79,124.32,24,96c28.31-.25,50.31,8.47,59.6,23.81C88.45,127.82,89.24,137.14,86.06,146.74Zm111.06-1.36c-13.4,8.11-29.15,8.73-45.15,2l53.69-53.7a8,8,0,0,0-11.31-11.32L140.65,136c-6.76-16-6.15-31.76,2-45.15,13.94-23,47-35.8,89.33-34.83C232.94,98.34,220.14,131.44,197.12,145.38Z"/></svg><div><b>続いていく地域づくり</b><small>地域の人がともに学び、支え合うコミュニティをつくります。</small></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= ひがすいの今 ================= -->
+<section class="now" id="now">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="en" data-rv="wipe">NOW</span><span class="hand" aria-hidden="true" data-rv="pop">Growing!</span>
+      <h2>ひがすいの今</h2>
+      <p>小さくはじまった楽団が、少しずつ大きくなっています。</p>
+    </div>
+    <ul class="nums" data-stagger="rise">
+      <li><span class="from"><small>はじまりは</small><strong>5人</strong></span><span class="pre">いっしょに吹いている仲間</span><b><span data-count="30">30</span><small>人以上</small></b><span class="post">中学生から大人まで</span></li>
+      <li><span class="pre">Instagramのフォロワー</span><b><span data-count="2000">2,000</span><small>人以上</small></b><span class="post">毎週の様子を発信中</span></li>
+      <li><span class="pre">ひがすいが主催します</span><b>2027.5.2</b><span class="post">東大阪市吹奏楽フェスタ</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 活動 ================= -->
+<section class="activity" id="activity">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="en" data-rv="wipe">ACTIVITY</span><span class="hand" aria-hidden="true" data-rv="pop">What we do</span>
+      <h2>活動</h2>
+    </div>
+    <ul class="acts-list" data-stagger="rise">
+      <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M156.5,151,59,222.45a8,8,0,0,1-10.38-.79l-14.3-14.3A8,8,0,0,1,33.55,197L105,99.5l0,0A64,64,0,0,0,156.48,151Z" opacity="0.2"/><path d="M168,16A72.07,72.07,0,0,0,96,88a73.29,73.29,0,0,0,.63,9.42L27.12,192.22A15.93,15.93,0,0,0,28.71,213L43,227.29a15.93,15.93,0,0,0,20.78,1.59l94.81-69.53A73.29,73.29,0,0,0,168,160a72,72,0,1,0,0-144Zm56,72a55.72,55.72,0,0,1-11.16,33.52L134.49,43.16A56,56,0,0,1,224,88ZM54.32,216,40,201.68,102.14,117A72.37,72.37,0,0,0,139,153.86ZM112,88a55.67,55.67,0,0,1,11.16-33.51l78.34,78.34A56,56,0,0,1,112,88Zm-2.35,58.34a8,8,0,0,1,0,11.31l-8,8a8,8,0,1,1-11.31-11.31l8-8A8,8,0,0,1,109.67,146.33Z"/></svg><div><b>演奏活動</b><small>地域のイベントへの出演、依頼演奏、演奏会など</small></div></li>
+      <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M192,80v96H104a32,32,0,1,0-32-32H64V80Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H53.39a8,8,0,0,0,7.23-4.57,48,48,0,0,1,86.76,0,8,8,0,0,0,7.23,4.57H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM80,144a24,24,0,1,1,24,24A24,24,0,0,1,80,144Zm136,56H159.43a64.39,64.39,0,0,0-28.83-26.16,40,40,0,1,0-53.2,0A64.39,64.39,0,0,0,48.57,200H40V56H216ZM56,96V80a8,8,0,0,1,8-8H192a8,8,0,0,1,8,8v96a8,8,0,0,1-8,8H176a8,8,0,0,1,0-16h8V88H72v8a8,8,0,0,1-16,0Z"/></svg><div><b>練習・講習会</b><small>土曜の合奏練習と、講師を招いたワークショップ</small></div></li>
+      <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,113.07v53.22a8,8,0,0,1-2,5.31c-11.3,12.59-38.9,36.4-86,36.4s-74.68-23.81-86-36.4a8,8,0,0,1-2-5.31V113.07L128,160Z" opacity="0.2"/><path d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188,118.94l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,128l-43,22.93L25,96,128,41.07,231,96Z"/></svg><div><b>学校との連携</b><small>学校や先生と協力した、音楽教育の支援</small></div></li>
+      <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M16,152H48v56H16a8,8,0,0,1-8-8V160A8,8,0,0,1,16,152ZM192.54,40A39.12,39.12,0,0,0,156,64a39.12,39.12,0,0,0-36.54-24C97.67,40,80,58.31,80,80c0,14.56,7,27.71,16.73,40H140a20,20,0,0,1,0,40h4l37.78-8.68C203.82,135.07,232,109.23,232,80,232,58.31,214.33,40,192.54,40Z" opacity="0.2"/><path d="M230.33,141.06a24.34,24.34,0,0,0-18.61-4.77C230.5,117.33,240,98.48,240,80c0-26.47-21.29-48-47.46-48A47.58,47.58,0,0,0,156,48.75,47.58,47.58,0,0,0,119.46,32C93.29,32,72,53.53,72,80c0,11,3.24,21.69,10.06,33a31.87,31.87,0,0,0-14.75,8.4L44.69,144H16A16,16,0,0,0,0,160v40a16,16,0,0,0,16,16H120a7.93,7.93,0,0,0,1.94-.24l64-16a6.94,6.94,0,0,0,1.19-.4L226,182.82l.44-.2a24.6,24.6,0,0,0,3.93-41.56ZM119.46,48A31.15,31.15,0,0,1,148.6,67a8,8,0,0,0,14.8,0,31.15,31.15,0,0,1,29.14-19C209.59,48,224,62.65,224,80c0,19.51-15.79,41.58-45.66,63.9l-11.09,2.55A28,28,0,0,0,140,112H100.68C92.05,100.36,88,90.12,88,80,88,62.65,102.41,48,119.46,48ZM16,160H40v40H16Zm203.43,8.21-38,16.18L119,200H56V155.31l22.63-22.62A15.86,15.86,0,0,1,89.94,128H140a12,12,0,0,1,0,24H112a8,8,0,0,0,0,16h32a8.32,8.32,0,0,0,1.79-.2l67-15.41.31-.08a8.6,8.6,0,0,1,6.3,15.9Z"/></svg><div><b>地域との協働</b><small>子育て支援・福祉・高齢者支援などの場での演奏</small></div></li>
+      <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M58.89,154.89l42.22,42.22-50.63,18.4a7.79,7.79,0,0,1-10-10Zm138.82-4.72L105.83,58.29A7.79,7.79,0,0,0,93,61.14l-14.9,41,75.82,75.82,41-14.9A7.79,7.79,0,0,0,197.71,150.17Z" opacity="0.2"/><path d="M111.49,52.63a15.8,15.8,0,0,0-26,5.77L33,202.78A15.83,15.83,0,0,0,47.76,224a16,16,0,0,0,5.46-1l144.37-52.5a15.8,15.8,0,0,0,5.78-26Zm-8.33,135.21-35-35,13.16-36.21,58.05,58.05Zm-55,20,14-38.41,24.45,24.45ZM156,168.64,87.36,100l13-35.87,91.43,91.43ZM160,72a37.8,37.8,0,0,1,3.84-15.58C169.14,45.83,179.14,40,192,40c6.7,0,11-2.29,13.65-7.21A22,22,0,0,0,208,23.94,8,8,0,0,1,224,24c0,12.86-8.52,32-32,32-6.7,0-11,2.29-13.65,7.21A22,22,0,0,0,176,72.06,8,8,0,0,1,160,72ZM136,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm101.66,82.34a8,8,0,1,1-11.32,11.31l-16-16a8,8,0,0,1,11.32-11.32Zm4.87-42.75-24,8a8,8,0,0,1-5.06-15.18l24-8a8,8,0,0,1,5.06,15.18Z"/></svg><div><b>団員の交流</b><small>親睦会など、演奏以外でも仲良く</small></div></li>
+    </ul>
+    <p class="policy">ひがすいは、政治的・宗教的な活動は一切行わず、反社会的勢力とも一切関わりを持ちません。</p>
+  </div>
+</section>
+
+<!-- ================= 運営メンバー ================= -->
+<section class="team" id="team">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="en" data-rv="wipe">TEAM</span><span class="hand" aria-hidden="true" data-rv="pop">Leaders</span>
+      <h2>運営メンバー</h2>
+    </div>
+    <p class="team-lead">ひがすいの音をつくる、ふたりの指揮者。</p>
+    <p class="team-note">※一部の写真とプロフィールは準備中です。</p>
+
+    <div class="conds">
+      <article class="cond" style="--c: var(--sun)" data-rv="rise">
+        <div class="cond-base" aria-hidden="true"><span>CONDUCTOR</span></div>
+        <figure class="cond-ph"><img src="img/cut-conductor.webp" alt="指揮をする段野 王海" width="820" height="1098" loading="lazy"></figure>
+        <div class="cond-txt">
+          <span class="role">指揮</span>
+          <h3 class="cond-name">段野 王海<small>だんの たかみ</small></h3>
+          <span class="part">B♭クラリネット</span>
+          <p class="msg">略歴は準備中です。</p>
+        </div>
+      </article>
+
+      <article class="cond flip" style="--c: var(--sky)" data-rv="rise">
+        <div class="cond-base" aria-hidden="true"><span>CONDUCTOR</span></div>
+        <figure class="cond-ph"><img src="img/cut-matsumura.webp" alt="ピースをする松村 奏多" width="820" height="1163" loading="lazy"></figure>
+        <div class="cond-txt">
+          <span class="role">団長・指揮</span>
+          <h3 class="cond-name">松村 奏多<small>まつむら かなた</small></h3>
+          <span class="part">バリトンサックス</span>
+          <p class="msg">プロフィールは準備中です。</p>
+        </div>
+      </article>
+    </div>
+
+    <ul class="staff" data-stagger="rise">
+      <li class="gm-card" style="--c: var(--pink)">
+        <span class="av photo"><img src="img/face-tani.webp" alt="シンバルを持つ谷 将大" width="520" height="624" loading="lazy"></span>
+        <div>
+          <span class="role gm">ゼネラルマネージャー</span>
+          <span class="name">谷 将大<small>たに まさひろ</small></span>
+          <span class="part">打楽器</span>
+        </div>
+        <ul class="duty" aria-label="担当">
+          <li>企画</li><li>運営</li><li>広報</li><li>渉外</li>
+        </ul>
+        <p class="msg lead-msg">音楽で、東大阪のまちを明るく元気に。</p>
+        <p class="msg">デザインや広告の仕事で積んできた経験を活かして、ひがすいの企画・運営・広報、地域や学校とのやりとりを担当しています。地域のみなさんと手を取り合いながら、より良いまちづくりを目指しています。</p>
+        <p class="msg bio">大阪芸術大学 音楽学科 音楽制作コース卒業。地域音楽コーディネーター。</p>
+      </li>
+      <li style="--c: var(--mint)">
+        <span class="av" style="background: #fff"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M192,96a64,64,0,1,1-64-64A64,64,0,0,1,192,96Z" opacity="0.2"/><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"/></svg></span>
+        <div><span class="role">副団長</span><span class="name">林 美里<small>はやし みさと</small></span><span class="part">B♭クラリネット</span></div>
+        <p class="msg">ひとことは準備中です。</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= パート紹介（募集ボード。中身は <script> の PARTS から作る） ================= -->
+<section class="parts" id="parts">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="en" data-rv="wipe">PARTS</span><span class="hand" aria-hidden="true" data-rv="pop">Join us!</span>
+      <h2>パート紹介と募集状況</h2>
+      <p>●がいまのメンバー、○があいている席です。</p>
+    </div>
+    <p class="recruit-sum" id="recruit-sum"></p>
+    <div class="sections" id="sections"></div>
+    <p class="parts-note"><span id="parts-updated"></span>募集を終了しているパートも、ご相談はお気軽にどうぞ。</p>
+  </div>
+</section>
+
+<!-- ================= 定款と見学 ================= -->
+<section class="closing">
+  <div class="wrap">
+    <button type="button" class="doc-link" data-msg="本番では、定款のページへ進みます。"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M200,176H104s8,6,8,16a24,24,0,0,1-48,0V64A24,24,0,0,0,40,40H176a24,24,0,0,1,24,24Z" opacity="0.2"/><path d="M96,104a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H104A8,8,0,0,1,96,104Zm8,40h64a8,8,0,0,0,0-16H104a8,8,0,0,0,0,16Zm128,48a32,32,0,0,1-32,32H88a32,32,0,0,1-32-32V64a16,16,0,0,0-32,0c0,5.74,4.83,9.62,4.88,9.66h0A8,8,0,0,1,24,88a7.89,7.89,0,0,1-4.79-1.61h0C18.05,85.54,8,77.61,8,64A32,32,0,0,1,40,32H176a32,32,0,0,1,32,32V168h8a8,8,0,0,1,4.8,1.6C222,170.46,232,178.39,232,192ZM96.26,173.48A8.07,8.07,0,0,1,104,168h88V64a16,16,0,0,0-16-16H67.69A31.71,31.71,0,0,1,72,64V192a16,16,0,0,0,32,0c0-5.74-4.83-9.62-4.88-9.66A7.82,7.82,0,0,1,96.26,173.48ZM216,192a12.58,12.58,0,0,0-3.23-8h-94a26.92,26.92,0,0,1,1.21,8,31.82,31.82,0,0,1-4.29,16H200A16,16,0,0,0,216,192Z"/></svg><span><b>定款</b><small>ひがすいの決まりごとを、すべて公開しています</small></span></button>
+    <div class="go-join">
+      <span class="hand" aria-hidden="true">Let's play!</span>
+      <h2>まずは、見学から。</h2>
+      <p>入団を決めなくても大丈夫。土曜の午後、音を聴きにきてください。</p>
+      <a class="pill-btn go" href="join.html#apply">見学を申し込む</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <img class="logo" src="img/logo.svg" alt="東大阪吹奏楽団" width="850" height="300">
+      <p class="place">練習場所：東大阪文化創造館（近鉄奈良線「八戸ノ里」駅から徒歩5分）ほか、東大阪市内の公共施設</p>
+    </div>
+    <div>
+      <nav aria-label="サイト内のページ"><ul>
+        <li><a href="index.html">トップ</a></li>
+        <li><a href="about.html">団について</a></li>
+        <li><a href="join.html">見学・入団</a></li>
+        <li><a href="join.html#faq">よくある質問</a></li>
+        <li><a href="news.html">お知らせ・活動日記</a></li>
+        <li><a href="#" data-msg="本番では、お問い合わせへ進みます。">お問い合わせ</a></li>
+        <li><a href="#" data-msg="本番では、定款へ進みます。">定款</a></li>
+      </ul></nav>
+      <small>© Higashi Osaka Wind Orchestra</small>
+    </div>
+  </div>
+</footer>
+
+<a class="fixed-cta" id="fixed-cta" href="join.html#apply">見学を申し込む</a>
+<p class="toast" id="toast" role="status" hidden></p>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* =========================================================
+     パートの募集状況（ポータル連携）
+     PORTAL：ポータルの Supabase。url と key が空のあいだは、下の SAMPLE（2026年11月のインスタ投稿の数字）を表示する。
+     ポータル側では、ビュー public_part_status が
+       part / label / note / section / sort / target / urgent / current / updated_at
+     を返す（current は団員データから自動で数える）。作り方は part_status.sql を参照。
+     ========================================================= */
+  var PORTAL = { url: '', key: '' };
+  var SECTIONS = [
+    { key: 'wood', kanji: '木', color: 'var(--sky)', name: '木管楽器', en: 'WOODWIND' },
+    { key: 'brass', kanji: '金', color: 'var(--sun)', name: '金管楽器', en: 'BRASS' },
+    { key: 'rhythm', kanji: '打', color: 'var(--pink)', name: '打楽器・弦バス', en: 'PERCUSSION & BASS' }
+  ];
+  var SAMPLE = {
+    updated_at: '2026-11-01',
+    rows: [
+      { section: 'wood', label: 'フルート', note: 'ピッコロもふくむ', target: 5, current: 4 },
+      { section: 'wood', label: 'オーボエ', target: 2, current: 1 },
+      { section: 'wood', label: 'ファゴット', target: 1, current: 0 },
+      { section: 'wood', label: 'クラリネット', note: 'エスクラ・アルトクラもふくむ', target: 9, current: 5 },
+      { section: 'wood', label: 'バスクラリネット', target: 1, current: 0 },
+      { section: 'wood', label: 'ソプラノサックス', target: 1, current: 1 },
+      { section: 'wood', label: 'アルトサックス', target: 4, current: 4 },
+      { section: 'wood', label: 'テナーサックス', target: 1, current: 1 },
+      { section: 'wood', label: 'バリトンサックス', target: 1, current: 1 },
+      { section: 'brass', label: 'トランペット', target: 5, current: 4 },
+      { section: 'brass', label: 'ホルン', target: 4, current: 3 },
+      { section: 'brass', label: 'トロンボーン', target: 3, current: 2 },
+      { section: 'brass', label: 'バストロンボーン', target: 1, current: 0 },
+      { section: 'brass', label: 'ユーフォニアム', target: 2, current: 2 },
+      { section: 'brass', label: 'チューバ', target: 2, current: 0, urgent: true },
+      { section: 'rhythm', label: '打楽器', target: 5, current: 4 },
+      { section: 'rhythm', label: 'コントラバス', note: 'エレキベースもふくむ', target: 1, current: 1 }
+    ]
+  };
+  function esc(t) { return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function loadParts() {
+    if (!PORTAL.url || !PORTAL.key) return Promise.resolve(SAMPLE);
+    return fetch(PORTAL.url + '/rest/v1/public_part_status?select=*&order=sort.asc', {
+      headers: { apikey: PORTAL.key, Authorization: 'Bearer ' + PORTAL.key }
+    }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (rows) { return { rows: rows, updated_at: rows.reduce(function (m, r) { return r.updated_at > m ? r.updated_at : m; }, '') }; });
+  }
+  function renderParts(data) {
+    var open = 0, urgent = [];
+    var html = SECTIONS.map(function (sec) {
+      var rows = data.rows.filter(function (p) { return p.section === sec.key; });
+      if (!rows.length) return '';
+      return '<article class="sec-card" data-rv="rise"><header><span class="kanji" style="--c:' + sec.color + '" aria-hidden="true">' + sec.kanji + '</span><h3><span class="en">' + sec.en + '</span>' + sec.name + '</h3></header><ul class="part-list">' +
+        rows.map(function (p) {
+          var target = +p.target || 0, current = +p.current || 0;
+          var left = Math.max(target - current, 0), full = left === 0;
+          if (!full) open++;
+          if (p.urgent && !full) urgent.push(p.label);
+          var cls = full ? ' full' : (p.urgent ? ' urgent' : '');
+          var st = full ? '募集終了' : (p.urgent ? '急募！' : '募集中');
+          var seats = '';
+          for (var i = 0; i < Math.max(target, current); i++) seats += '<i' + (i >= current ? ' class="open"' : '') + ' style="--n:' + i + '"></i>';
+          return '<li class="part-row' + cls + '"><span class="nm">' + esc(p.label) + (p.note ? '<small>' + esc(p.note) + '</small>' : '') + '</span>' +
+            '<span class="st">' + st + '</span>' +
+            '<span class="seats" aria-label="' + current + '人在籍、' + (full ? '募集終了' : 'あと' + left + '人') + '">' + seats + '<em>' + (full ? current + '人' : 'あと' + left + '人') + '</em></span></li>';
+        }).join('') + '</ul></article>';
+    }).join('');
+    document.getElementById('sections').innerHTML = html;
+    document.getElementById('recruit-sum').innerHTML = '<span>いま ' + open + 'パートで募集中</span>' + (urgent.length ? '<span class="urgent-sum">急募：' + urgent.map(esc).join('・') + '</span>' : '');
+    var d = data.updated_at ? new Date(String(data.updated_at).slice(0, 10) + 'T00:00:00') : null;
+    document.getElementById('parts-updated').textContent = d ? '（' + d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日 更新）' : '';
+  }
+  loadParts().then(renderParts).catch(function (e) {
+    console.warn('[about] 募集状況の読み込みに失敗しました', e);
+    document.getElementById('sections').innerHTML = '<p class="parts-note">募集状況を読み込めませんでした。見学・入団のページからお気軽にお問い合わせください。</p>';
+  });
+
+  // ---------- 追いかけてくる目次（見学ページと同じ） ----------
+  var toc = document.getElementById('toc');
+  var heroJump = document.querySelector('.page-hero .jump');
+  var tocLinks = [].slice.call(toc.querySelectorAll('a[href^="#"]'));
+  var tocTargets = tocLinks.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var tocCurrent = null;
+  function setOn(id) {
+    if (id === tocCurrent) return;
+    tocCurrent = id;
+    tocLinks.forEach(function (a) {
+      var on = a.getAttribute('href') === '#' + id;
+      a.classList.toggle('on', on);
+      if (on) {
+        a.setAttribute('aria-current', 'true');
+        var ul = toc.querySelector('ul'), d = a.getBoundingClientRect().left - ul.getBoundingClientRect().left;
+        ul.scrollBy({ left: d - 16, behavior: reduce ? 'auto' : 'smooth' });
+      } else a.removeAttribute('aria-current');
+    });
+  }
+  var spyTick = false;
+  function spy() {
+    spyTick = false;
+    var line = window.innerHeight * 0.35, id = null;
+    tocTargets.forEach(function (el) { var r = el.getBoundingClientRect(); if (r.top <= line && r.bottom > line) id = el.id; });
+    setOn(id);
+  }
+  window.addEventListener('scroll', function () { if (!spyTick) { spyTick = true; requestAnimationFrame(spy); } }, { passive: true });
+  window.addEventListener('resize', spy);
+  spy();
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { toc.classList.toggle('show', !e.isIntersecting && e.boundingClientRect.top < 0); });
+    }).observe(heroJump);
+  }
+
+  // ---------- 画面に入ったら動かす（入るまでは普通に見えている） ----------
+  [].forEach.call(document.querySelectorAll('[data-stagger]'), function (box) {
+    [].forEach.call(box.children, function (el, i) { el.setAttribute('data-rv', box.dataset.stagger); el.style.setProperty('--d', (i * 0.08).toFixed(2) + 's'); });
+  });
+  function countUp(el) {
+    var to = parseInt(el.dataset.count, 10), t0 = null;
+    function step(t) {
+      if (!t0) t0 = t;
+      var k = Math.min((t - t0) / 1200, 1), v = Math.round(to * (1 - Math.pow(1 - k, 3)));
+      el.textContent = v.toLocaleString('ja-JP');
+      if (k < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if (!reduce && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+        [].forEach.call(e.target.querySelectorAll('[data-count]'), countUp);
+      });
+    }, { rootMargin: '0px 0px -10% 0px' });
+    [].forEach.call(document.querySelectorAll('[data-rv]'), function (el) {
+      if (el.getBoundingClientRect().top > window.innerHeight * 0.9) io.observe(el);
+    });
+  }
+
+  // ---------- 試作なので、まだ無いページは行き先を表示する ----------
+  var toast = document.getElementById('toast'), timer;
+  [].forEach.call(document.querySelectorAll('[data-msg]'), function (el) {
+    el.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      toast.textContent = el.dataset.msg;
+      toast.hidden = false;
+      clearTimeout(timer);
+      timer = setTimeout(function () { toast.hidden = true; }, 3000);
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+---
+# お知らせの一覧。GitHub Pages が _data/news フォルダの記事から自動で作ります（手で書きかえない）。
+# news.html とトップページが、このファイルを読んで記事を並べます（並べかえはページ側でする）。
+---
+[
+{%- assign sep = "" -%}
+{%- for item in site.data.news -%}
+{%- assign p = item[1] -%}
+{%- unless p.status == "下書き" -%}
+{%- assign html = p.body | markdownify -%}
+{{ sep }}
+  {
+    "id": {{ item[0] | jsonify }},
+    "tag": {{ p.category | default: "お知らせ" | jsonify }},
+    "published_at": {{ p.date | date: "%Y-%m-%d" | jsonify }},
+    "title": {{ p.title | jsonify }},
+    "cover_url": {{ p.cover | jsonify }},
+    "excerpt": {{ html | strip_html | normalize_whitespace | truncate: 120, "…" | jsonify }},
+    "body_html": {{ html | jsonify }}
+  }
+{%- assign sep = "," -%}
+{%- endunless -%}
+{%- endfor %}
+]

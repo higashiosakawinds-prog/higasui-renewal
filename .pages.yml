@@ -1,0 +1,73 @@
+# =========================================================
+# ひがすい サイトの管理画面（Pages CMS）の設定
+#
+# ・label（画面に出る名前）と description（説明）は日本語にしています
+# ・記事は _data/news フォルダに 1記事 = 1ファイル で保存されます
+# ・写真は img/news フォルダに保存されます
+# ・保存すると GitHub Pages が news.json を作り直し、1分ほどでサイトに出ます
+# ・あとで入力欄を足すときは、ここと news.json の両方に書き足します
+# =========================================================
+
+media:
+  label: 写真
+  input: img/news
+  output: img/news
+  categories: [image]
+  rename: random        # 日本語のファイル名でも重ならないように、名前を自動でつける
+
+content:
+  - name: news
+    label: お知らせ・活動日記
+    description: サイトの「お知らせ・活動日記」と、トップページの新着に出る記事です。
+    type: collection
+    path: _data/news
+    format: yaml
+    filename: "{year}{month}{day}-{hour}{minute}{second}.yml"
+    view:
+      fields: [title, date, category, status]
+      primary: title
+      search: [title, body]
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: タイトル
+        type: string
+        required: true
+        description: 一覧とトップページに出ます。30文字くらいまでがおすすめです。
+
+      - name: date
+        label: 日付
+        type: date
+        required: true
+        description: 記事に出る日付です。新しい日付のものから順に並びます。
+
+      - name: category
+        label: カテゴリ
+        type: select
+        required: true
+        default: お知らせ
+        description: 一覧ページの絞り込みに使います。
+        options:
+          values: [お知らせ, 演奏会, 募集, 練習日記]
+
+      - name: cover
+        label: 一覧に出す写真
+        type: image
+        description: 横長の写真がきれいに見えます。なくても大丈夫です（そのときは練習の写真が入ります）。
+
+      - name: status
+        label: 公開
+        type: select
+        required: true
+        default: 公開する
+        description: 「下書き」にすると、サイトには出ません（書きかけのときに使います）。
+        options:
+          values: [公開する, 下書き]
+
+      - name: body
+        label: 本文
+        type: rich-text
+        description: 改行はそのまま改行になります。写真は上の画像ボタンから入れられます。
