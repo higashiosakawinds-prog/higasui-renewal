@@ -94,7 +94,7 @@ content:
     format: yaml
     filename: "{year}{month}{day}-{hour}{minute}{second}.yml"
     view:
-      fields: [title, date, kind, status]
+      fields: [title, date, kind, pickup, status]
       primary: title
       search: [title, place, body]
       sort: [date, title]
@@ -159,6 +159,17 @@ content:
         options:
           media: events
           multiple: true
+      - name: pickup
+        label: トップページに大きく出す
+        type: boolean
+        default: false
+        description: オンにすると、トップページの「次の演奏会」の欄にこの本番が出ます（オンが複数あるときは日付が近いもの）。どれもオンでないときは、いちばん近い本番が出ます。
+      - name: pickup_image
+        label: トップページ用の写真（横長）
+        type: image
+        description: トップの欄は横長なので、たてのチラシだと切れてしまいます。横長の写真を入れておくと、こちらが使われます。
+        options:
+          media: events
       - name: link_url
         label: 申し込み・特設サイトのURL
         type: string

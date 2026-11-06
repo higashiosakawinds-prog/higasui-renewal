@@ -754,7 +754,7 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
     <li><a href="#news">お知らせ・活動日記</a></li>
     <li><a href="#about">ひがすいって？</a></li>
     <li><a href="#for">どのタイプ？</a></li>
-    <li><a href="#festa">吹奏楽フェスタ</a></li>
+    <li><a href="#festa">次の演奏会</a></li>
     <li><a href="#sns">SNS</a></li>
     <li><a class="to-apply" href="join.html#apply">見学を申し込む</a></li>
   </ul>
@@ -937,16 +937,17 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
 <!-- ================= 演奏会の特集 ================= -->
 <section class="feature" id="festa">
   <div class="wrap">
-    <a class="feature-card" href="https://higashiosakawinds-prog.github.io/brassfes/" target="_blank" rel="noopener" data-rv="zoom">
+    <!-- 中身は events.json（管理画面「演奏会・イベント」）から入れる。「トップページに大きく出す」がオンの本番 → なければいちばん近い本番 -->
+    <a class="feature-card" id="pickup-card" href="events.html" data-rv="zoom">
       <img src="img/ph-concert.webp" alt="" loading="lazy" width="1200" height="800">
       <span class="txt">
-        <span class="hand">Festa</span>
-        <b>東大阪市<wbr>吹奏楽フェスタ</b>
-        <time>2027.5.2 SUN</time>
-        <span>大阪府立中央図書館 ライティホール<br>入場無料</span>
+        <span class="hand">Next stage</span>
+        <b>演奏会・イベント</b>
+        <time>&nbsp;</time>
+        <span>&nbsp;</span>
       </span>
     </a>
-    <p class="next-ev">ひがすい主催。日新高校吹奏楽部、吹奏楽団 未来図といっしょに演奏します。<br><a href="https://higashiosakawinds-prog.github.io/brassfes/" target="_blank" rel="noopener">フェスタのサイトを見る</a></p>
+    <p class="next-ev" id="pickup-note"><a href="events.html">演奏会・イベントの予定を見る</a></p>
   </div>
   <div class="ridge" aria-hidden="true">
     <div class="stadium" data-rv="land"><img class="lm" src="img/lm-stadium.webp" alt="" loading="lazy" width="1600" height="569"><span class="place-tag">花園ラグビー場</span></div>
@@ -1205,6 +1206,36 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
       console.warn('[news] お知らせを読み込めませんでした', e);
       newsBox.hidden = true;   // 読めないときは「一覧を見る」だけ出す
     });
+
+  // 次の演奏会：events.json から「トップページに大きく出す」の本番（なければいちばん近い本番）を出す
+  (function () {
+    var card = document.getElementById('pickup-card'), note = document.getElementById('pickup-note');
+    var WD_EN = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+    var today;
+    try { today = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Tokyo' }).format(new Date()); } catch (e) { today = new Date().toISOString().slice(0, 10); }
+    function ok(u) { return /^(https?:\/\/|img\/)/.test(u || '') ? u : ''; }
+    fetch('events.json', { cache: 'no-cache' })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (rows) {
+        var up = rows.filter(function (e) { return String(e.date).slice(0, 10) >= today; })
+          .sort(function (a, b) { return String(a.date).localeCompare(String(b.date)); });
+        var e = up.filter(function (x) { return x.pickup; })[0] || up[0];
+        if (!e) return;   // 予定がないときは「予定を見る」だけ
+        var m = String(e.date).match(/^(\d{4})-(\d{2})-(\d{2})/), wd = new Date(+m[1], +m[2] - 1, +m[3]).getDay();
+        var img = ok(e.pickup_image) || ok(e.cover_url) || 'img/ph-concert.webp';
+        card.href = 'events.html#event-' + encodeURIComponent(e.id);
+        card.innerHTML = '<img src="' + escNews(img) + '" alt="" loading="lazy">' +
+          '<span class="txt"><span class="hand">' + (e.kind === '主催演奏会' ? 'Our concert' : 'Next stage') + '</span>' +
+          '<b>' + escNews(e.title) + '</b>' +
+          '<time>' + (e.when_text ? escNews(e.when_text) : (+m[1]) + '.' + (+m[2]) + '.' + (+m[3]) + ' ' + WD_EN[wd] + (e.time ? ' ' + escNews(e.time) : '')) + '</time>' +
+          '<span>' + escNews(e.place) + (e.fee ? '<br>' + escNews(e.fee) : '') + '</span></span>';
+        var link = ok(e.link_url);
+        note.innerHTML = (e.summary ? escNews(e.summary) + '<br>' : '') +
+          (link ? '<a href="' + escNews(link) + '" target="_blank" rel="noopener">' + escNews(e.link_label || 'くわしくはこちら') + '</a>　' : '') +
+          '<a href="events.html">ほかの予定も見る</a>';
+      })
+      .catch(function (err) { console.warn('[top] 演奏会を読み込めませんでした', err); });
+  })();
 
   // 試作なので、押したら行き先を表示する
   var toast = document.getElementById('toast');

@@ -12,6 +12,8 @@ cover: img/events/summer-2026-1.webp
 photos:
   - img/events/summer-2026-2.webp
   - img/events/summer-2026-3.webp
+pickup: false
+pickup_image: ""
 link_url: ""
 link_label: ""
 status: 公開する

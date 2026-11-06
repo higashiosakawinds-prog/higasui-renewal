@@ -10,6 +10,8 @@ performers: 東大阪吹奏楽団
 summary: クリスマスの曲をお届けします。くわしい日時・会場は、決まりしだいお知らせします。
 cover: ""
 photos: []
+pickup: false
+pickup_image: ""
 link_url: ""
 link_label: ""
 status: 公開する

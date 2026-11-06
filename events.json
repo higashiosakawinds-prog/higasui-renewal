@@ -22,6 +22,8 @@
     "summary": {{ e.summary | default: "" | jsonify }},
     "cover_url": {{ e.cover | default: "" | jsonify }},
     "photos": {% if e.photos %}{{ e.photos | jsonify }}{% else %}[]{% endif %},
+    "pickup": {% if e.pickup %}true{% else %}false{% endif %},
+    "pickup_image": {{ e.pickup_image | default: "" | jsonify }},
     "link_url": {{ e.link_url | default: "" | jsonify }},
     "link_label": {{ e.link_label | default: "" | jsonify }},
     "body_html": {{ e.body | default: "" | markdownify | jsonify }}

@@ -10,6 +10,8 @@ performers: 日新高校吹奏楽部、吹奏楽団 未来図、東大阪吹奏�
 summary: ひがすいが主催する、東大阪の吹奏楽のお祭り。中高生から大人まで、3団体が出演します。
 cover: img/post-festa.webp
 photos: []
+pickup: true
+pickup_image: img/ph-concert.webp
 link_url: https://higashiosakawinds-prog.github.io/brassfes/
 link_label: フェスタの特設サイトを見る
 status: 公開する
