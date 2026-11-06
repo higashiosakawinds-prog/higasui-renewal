@@ -1,0 +1,32 @@
+---
+# 演奏会・イベントの一覧。GitHub Pages が _data/events フォルダから自動で作ります（手で書きかえない）。
+# events.html とトップページが、このファイルを読みます（これから・これまでの振り分けはページ側でする）。
+---
+[
+{%- assign sep = "" -%}
+{%- for item in site.data.events -%}
+{%- assign e = item[1] -%}
+{%- unless e.status == "下書き" -%}
+{{ sep }}
+  {
+    "id": {{ item[0] | jsonify }},
+    "title": {{ e.title | jsonify }},
+    "kind": {{ e.kind | default: "出演" | jsonify }},
+    "date": {{ e.date | date: "%Y-%m-%d" | jsonify }},
+    "time": {{ e.time | default: "" | jsonify }},
+    "when_text": {{ e.when_text | default: "" | jsonify }},
+    "place": {{ e.place | default: "" | jsonify }},
+    "place_note": {{ e.place_note | default: "" | jsonify }},
+    "fee": {{ e.fee | default: "" | jsonify }},
+    "performers": {{ e.performers | default: "" | jsonify }},
+    "summary": {{ e.summary | default: "" | jsonify }},
+    "cover_url": {{ e.cover | default: "" | jsonify }},
+    "photos": {% if e.photos %}{{ e.photos | jsonify }}{% else %}[]{% endif %},
+    "link_url": {{ e.link_url | default: "" | jsonify }},
+    "link_label": {{ e.link_label | default: "" | jsonify }},
+    "body_html": {{ e.body | default: "" | markdownify | jsonify }}
+  }
+{%- assign sep = "," -%}
+{%- endunless -%}
+{%- endfor %}
+]

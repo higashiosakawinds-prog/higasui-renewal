@@ -9,11 +9,18 @@
 # =========================================================
 
 media:
-  label: 写真
-  input: img/news
-  output: img/news
-  categories: [image]
-  rename: random        # 日本語のファイル名でも重ならないように、名前を自動でつける
+  - name: news
+    label: 写真（お知らせ）
+    input: img/news
+    output: img/news
+    categories: [image]
+    rename: random      # 日本語のファイル名でも重ならないように、名前を自動でつける
+  - name: events
+    label: 写真（演奏会）
+    input: img/events
+    output: img/events
+    categories: [image]
+    rename: random
 
 content:
   - name: news
@@ -57,6 +64,8 @@ content:
         label: 一覧に出す写真
         type: image
         description: 横長の写真がきれいに見えます。なくても大丈夫です（そのときは練習の写真が入ります）。
+        options:
+          media: news
 
       - name: status
         label: 公開
@@ -71,6 +80,106 @@ content:
         label: 本文
         type: rich-text
         description: 改行はそのまま改行になります。写真は上の画像ボタンから入れられます。
+        options:
+          media: news
+
+  # ---------------------------------------------------------
+  # 演奏会・イベント（events.html に出る。日付が今日より前になると、自動で「これまで」に移る）
+  # ---------------------------------------------------------
+  - name: events
+    label: 演奏会・イベント
+    description: 演奏会・イベントのページに出ます。本番が終わると、自動で「これまで」に移ります。
+    type: collection
+    path: _data/events
+    format: yaml
+    filename: "{year}{month}{day}-{hour}{minute}{second}.yml"
+    view:
+      fields: [title, date, kind, status]
+      primary: title
+      search: [title, place, body]
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: 演奏会・イベントの名前
+        type: string
+        required: true
+      - name: kind
+        label: 種類
+        type: select
+        required: true
+        default: 出演
+        description: 主催演奏会＝ひがすいが開く演奏会。出演＝施設やおまつりなどに呼ばれて演奏するもの。
+        options:
+          values: [主催演奏会, 出演, ワークショップ, その他]
+      - name: date
+        label: 日付
+        type: date
+        required: true
+        description: 本番の日です。この日を過ぎると「これまで」に移ります。日にちが未定のときは、仮の日付を入れて、下の「日時の書き方」を使います。
+      - name: time
+        label: 時間
+        type: string
+        description: 例：14:30開演、13:00開場 / 13:30開演
+      - name: when_text
+        label: 日時の書き方（日にちが未定のとき）
+        type: string
+        description: ここに書くと、日付のかわりにこの文が出ます。例：2026年12月（日時は決まりしだいお知らせします）
+      - name: place
+        label: 会場
+        type: string
+        required: true
+      - name: place_note
+        label: 会場の住所・行き方
+        type: text
+        description: なくても大丈夫です。例：近鉄奈良線「瓢箪山」駅から徒歩5分
+      - name: fee
+        label: 入場料
+        type: string
+        description: 例：入場無料、一般 1,000円 / 高校生以下 無料
+      - name: performers
+        label: 出演
+        type: string
+      - name: summary
+        label: ひとこと紹介
+        type: text
+        description: 一覧に出る短い紹介です。60文字くらいまでがおすすめです。
+      - name: cover
+        label: メインの写真・チラシ
+        type: image
+        description: 本番前はチラシ、本番のあとは当日の写真がおすすめです。
+        options:
+          media: events
+      - name: photos
+        label: 当日の写真
+        type: image
+        description: 本番のあとに入れると、くわしいページに並びます。何枚でも入れられます。
+        options:
+          media: events
+          multiple: true
+      - name: link_url
+        label: 申し込み・特設サイトのURL
+        type: string
+        description: チケットの申し込みページや特設サイトがあるときに入れます。
+      - name: link_label
+        label: そのボタンの文字
+        type: string
+        description: 例：チケットを申し込む、特設サイトを見る
+      - name: status
+        label: 公開
+        type: select
+        required: true
+        default: 公開する
+        options:
+          values: [公開する, 下書き]
+      - name: body
+        label: くわしい内容・ふりかえり
+        type: rich-text
+        description: 本番前は曲目や見どころ、本番のあとはふりかえりを書きます。
+        options:
+          media: events
 
   # ---------------------------------------------------------
   # パートの募集状況（団体紹介の募集ボードと、トップの「いま◯パートで募集中」に出る）
