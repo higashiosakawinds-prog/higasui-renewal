@@ -1,0 +1,2 @@
+{%- comment -%} 数字を「3,000」のように3けたごとに区切って出す。使い方：{% include yen.html n=s.fee_adult %} {%- endcomment -%}
+{%- assign yen_s = include.n | append: "" -%}{%- assign yen_l = yen_s | size -%}{%- if yen_l > 3 -%}{%- assign yen_h = yen_l | minus: 3 -%}{{ yen_s | slice: 0, yen_h }},{{ yen_s | slice: yen_h, 3 }}{%- else -%}{{ yen_s }}{%- endif -%}

@@ -1,0 +1,104 @@
+updated: 2026-11-01
+parts:
+  - label: フルート
+    note: ピッコロもふくむ
+    section: 木管楽器
+    target: 5
+    current: 4
+    urgent: false
+  - label: オーボエ
+    note: ""
+    section: 木管楽器
+    target: 2
+    current: 1
+    urgent: false
+  - label: ファゴット
+    note: ""
+    section: 木管楽器
+    target: 1
+    current: 0
+    urgent: false
+  - label: クラリネット
+    note: エスクラ・アルトクラもふくむ
+    section: 木管楽器
+    target: 9
+    current: 5
+    urgent: false
+  - label: バスクラリネット
+    note: ""
+    section: 木管楽器
+    target: 1
+    current: 0
+    urgent: false
+  - label: ソプラノサックス
+    note: ""
+    section: 木管楽器
+    target: 1
+    current: 1
+    urgent: false
+  - label: アルトサックス
+    note: ""
+    section: 木管楽器
+    target: 4
+    current: 4
+    urgent: false
+  - label: テナーサックス
+    note: ""
+    section: 木管楽器
+    target: 1
+    current: 1
+    urgent: false
+  - label: バリトンサックス
+    note: ""
+    section: 木管楽器
+    target: 1
+    current: 1
+    urgent: false
+  - label: トランペット
+    note: ""
+    section: 金管楽器
+    target: 5
+    current: 4
+    urgent: false
+  - label: ホルン
+    note: ""
+    section: 金管楽器
+    target: 4
+    current: 3
+    urgent: false
+  - label: トロンボーン
+    note: ""
+    section: 金管楽器
+    target: 3
+    current: 2
+    urgent: false
+  - label: バストロンボーン
+    note: ""
+    section: 金管楽器
+    target: 1
+    current: 0
+    urgent: false
+  - label: ユーフォニアム
+    note: ""
+    section: 金管楽器
+    target: 2
+    current: 2
+    urgent: false
+  - label: チューバ
+    note: ""
+    section: 金管楽器
+    target: 2
+    current: 0
+    urgent: true
+  - label: 打楽器
+    note: ""
+    section: 打楽器・弦バス
+    target: 5
+    current: 4
+    urgent: false
+  - label: コントラバス
+    note: エレキベースもふくむ
+    section: 打楽器・弦バス
+    target: 1
+    current: 1
+    urgent: false

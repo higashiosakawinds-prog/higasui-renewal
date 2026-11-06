@@ -1,3 +1,7 @@
+---
+# このページの {{ }} の部分には、管理画面「サイトの基本情報」などの値が入る（GitHub Pages が組み立てるときに差し込む）
+---
+{%- assign s = site.data.site -%}
 <!doctype html>
 <html lang="ja">
 <head>
@@ -552,8 +556,8 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
       <p>小さくはじまった楽団が、少しずつ大きくなっています。</p>
     </div>
     <ul class="nums" data-stagger="rise">
-      <li><span class="from"><small>はじまりは</small><strong>5人</strong></span><span class="pre">いっしょに吹いている仲間</span><b><span data-count="30">30</span><small>人以上</small></b><span class="post">中学生から大人まで</span></li>
-      <li><span class="pre">Instagramのフォロワー</span><b><span data-count="2000">2,000</span><small>人以上</small></b><span class="post">毎週の様子を発信中</span></li>
+      <li><span class="from"><small>はじまりは</small><strong>5人</strong></span><span class="pre">いっしょに吹いている仲間</span><b><span data-count="{{ s.members }}">{{ s.members }}</span><small>人以上</small></b><span class="post">{{ s.target }}</span></li>
+      <li><span class="pre">Instagramのフォロワー</span><b><span data-count="{{ s.followers }}">{% include yen.html n=s.followers %}</span><small>人以上</small></b><span class="post">毎週の様子を発信中</span></li>
       <li><span class="pre">ひがすいが主催します</span><b>2027.5.2</b><span class="post">東大阪市吹奏楽フェスタ</span></li>
     </ul>
   </div>
@@ -666,7 +670,7 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
   <div class="wrap">
     <div>
       <img class="logo" src="img/logo.svg" alt="東大阪吹奏楽団" width="850" height="300">
-      <p class="place">練習場所：東大阪文化創造館（近鉄奈良線「八戸ノ里」駅から徒歩5分）ほか、東大阪市内の公共施設</p>
+      <p class="place">練習場所：{{ s.practice_place }}</p>
     </div>
     <div>
       <nav aria-label="サイト内のページ"><ul>
@@ -691,47 +695,33 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* =========================================================
-     パートの募集状況（ポータル連携）
-     PORTAL：ポータルの Supabase。url と key が空のあいだは、下の SAMPLE（2026年11月のインスタ投稿の数字）を表示する。
-     ポータル側では、ビュー public_part_status が
-       part / label / note / section / sort / target / urgent / current / updated_at
-     を返す（current は団員データから自動で数える）。作り方は part_status.sql を参照。
+     パートの募集状況
+     ふだんは管理画面「パートの募集状況」の値（GitHub Pages が下の CMS_PARTS に差し込む）を出す。
+     ポータルとつなぐことになったら、PORTAL に url と key を入れる。
+     すると「いまの人数」だけ、ポータルのビュー public_part_status の current（団員データから自動で数えた人数）に
+     置きかわる（パート名 label で照らし合わせる）。目標人数・急募・並び順は管理画面のまま。作り方は part_status.sql。
      ========================================================= */
+  var CMS_PARTS = {{ site.data.parts | jsonify }};
   var PORTAL = { url: '', key: '' };
   var SECTIONS = [
-    { key: 'wood', kanji: '木', color: 'var(--sky)', name: '木管楽器', en: 'WOODWIND' },
-    { key: 'brass', kanji: '金', color: 'var(--sun)', name: '金管楽器', en: 'BRASS' },
-    { key: 'rhythm', kanji: '打', color: 'var(--pink)', name: '打楽器・弦バス', en: 'PERCUSSION & BASS' }
+    { key: '木管楽器', kanji: '木', color: 'var(--sky)', name: '木管楽器', en: 'WOODWIND' },
+    { key: '金管楽器', kanji: '金', color: 'var(--sun)', name: '金管楽器', en: 'BRASS' },
+    { key: '打楽器・弦バス', kanji: '打', color: 'var(--pink)', name: '打楽器・弦バス', en: 'PERCUSSION & BASS' }
   ];
-  var SAMPLE = {
-    updated_at: '2026-11-01',
-    rows: [
-      { section: 'wood', label: 'フルート', note: 'ピッコロもふくむ', target: 5, current: 4 },
-      { section: 'wood', label: 'オーボエ', target: 2, current: 1 },
-      { section: 'wood', label: 'ファゴット', target: 1, current: 0 },
-      { section: 'wood', label: 'クラリネット', note: 'エスクラ・アルトクラもふくむ', target: 9, current: 5 },
-      { section: 'wood', label: 'バスクラリネット', target: 1, current: 0 },
-      { section: 'wood', label: 'ソプラノサックス', target: 1, current: 1 },
-      { section: 'wood', label: 'アルトサックス', target: 4, current: 4 },
-      { section: 'wood', label: 'テナーサックス', target: 1, current: 1 },
-      { section: 'wood', label: 'バリトンサックス', target: 1, current: 1 },
-      { section: 'brass', label: 'トランペット', target: 5, current: 4 },
-      { section: 'brass', label: 'ホルン', target: 4, current: 3 },
-      { section: 'brass', label: 'トロンボーン', target: 3, current: 2 },
-      { section: 'brass', label: 'バストロンボーン', target: 1, current: 0 },
-      { section: 'brass', label: 'ユーフォニアム', target: 2, current: 2 },
-      { section: 'brass', label: 'チューバ', target: 2, current: 0, urgent: true },
-      { section: 'rhythm', label: '打楽器', target: 5, current: 4 },
-      { section: 'rhythm', label: 'コントラバス', note: 'エレキベースもふくむ', target: 1, current: 1 }
-    ]
-  };
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function loadParts() {
-    if (!PORTAL.url || !PORTAL.key) return Promise.resolve(SAMPLE);
-    return fetch(PORTAL.url + '/rest/v1/public_part_status?select=*&order=sort.asc', {
+    var data = { rows: (CMS_PARTS && CMS_PARTS.parts) || [], updated_at: CMS_PARTS && CMS_PARTS.updated };
+    if (!PORTAL.url || !PORTAL.key) return Promise.resolve(data);
+    return fetch(PORTAL.url + '/rest/v1/public_part_status?select=label,current', {
       headers: { apikey: PORTAL.key, Authorization: 'Bearer ' + PORTAL.key }
     }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (rows) { return { rows: rows, updated_at: rows.reduce(function (m, r) { return r.updated_at > m ? r.updated_at : m; }, '') }; });
+      .then(function (live) {
+        var byLabel = {};
+        live.forEach(function (x) { byLabel[x.label] = x.current; });
+        data.rows.forEach(function (p) { if (p.label in byLabel) p.current = byLabel[p.label]; });
+        return data;
+      })
+      .catch(function (e) { console.warn('[about] ポータルの人数を読めなかったので、管理画面の人数を出します', e); return data; });
   }
   function renderParts(data) {
     var open = 0, urgent = [];

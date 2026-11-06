@@ -71,3 +71,146 @@ content:
         label: 本文
         type: rich-text
         description: 改行はそのまま改行になります。写真は上の画像ボタンから入れられます。
+
+  # ---------------------------------------------------------
+  # パートの募集状況（団体紹介の募集ボードと、トップの「いま◯パートで募集中」に出る）
+  # ポータルとつなぐことになったら、「いまの人数」はポータルの数字が優先される（about.html の loadParts）
+  # ---------------------------------------------------------
+  - name: parts
+    label: パートの募集状況
+    type: file
+    path: _data/parts.yml
+    format: yaml
+    fields:
+      - name: updated
+        label: 更新日
+        type: date
+        required: true
+        description: 募集ボードに「◯月◯日 更新」と出ます。数字を直したら、この日付も直してください。
+      - name: parts
+        label: パート
+        type: object
+        description: 上から順にサイトに並びます。いまの人数が目標人数に届くと、自動で「募集終了」になります。
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{fields.label}　{fields.current} / {fields.target}人"
+        fields:
+          - name: label
+            label: パート名
+            type: string
+            required: true
+          - name: note
+            label: 補足
+            type: string
+            description: 「ピッコロもふくむ」など。なくても大丈夫です。
+          - name: section
+            label: グループ
+            type: select
+            required: true
+            default: 木管楽器
+            options:
+              values: [木管楽器, 金管楽器, 打楽器・弦バス]
+          - name: target
+            label: 目標人数
+            type: number
+            required: true
+          - name: current
+            label: いまの人数
+            type: number
+            required: true
+          - name: urgent
+            label: 急募にする
+            type: boolean
+            default: false
+            description: オンにすると「急募！」の目立つ表示になります。
+
+  # ---------------------------------------------------------
+  # サイトの基本情報（トップ・見学入団・団体紹介・フッターに出る）
+  # ---------------------------------------------------------
+  - name: site
+    label: サイトの基本情報
+    type: file
+    path: _data/site.yml
+    format: yaml
+    fields:
+      - name: practice_day
+        label: 練習の曜日
+        type: string
+        required: true
+        description: 例：毎週土曜
+      - name: practice_time
+        label: 練習の時間
+        type: string
+        required: true
+        description: 例：13:00〜17:00
+      - name: practice_area
+        label: 練習の地域
+        type: string
+        required: true
+        description: 見学チケットに出る短い言い方です。例：東大阪市内
+      - name: practice_place
+        label: 練習場所の説明
+        type: text
+        required: true
+        description: ページのいちばん下（フッター）に出ます。
+      - name: target
+        label: 参加できる人
+        type: string
+        required: true
+        description: 例：中学生から大人まで
+      - name: min_age
+        label: 参加できる年齢（何歳から）
+        type: number
+        required: true
+      - name: members
+        label: 団員の人数
+        type: number
+        required: true
+        description: 「◯人以上」と出ます。
+      - name: followers
+        label: Instagramのフォロワー数
+        type: number
+        required: true
+        description: 「◯人以上」と出ます。きりのいい数字がおすすめです。
+      - name: fee_adult
+        label: 月会費（一般）
+        type: number
+        required: true
+        description: 円。数字だけ入れます。
+      - name: fee_student
+        label: 月会費（学生）
+        type: number
+        required: true
+        description: 円。中学生・高校生の会費です。
+      - name: visit_fee
+        label: 見学・体験の参加費（1回）
+        type: number
+        required: true
+        description: 円。キャンペーン中は「通常◯円」として出ます。
+      - name: visit_limit
+        label: 見学・体験できる回数
+        type: number
+        required: true
+      - name: campaign
+        label: 見学無料キャンペーン中
+        type: boolean
+        default: false
+        description: オンにすると、サイト中の見学費が「0円（通常◯円）」になります。
+      - name: campaign_period
+        label: キャンペーンの期間
+        type: string
+        description: 例：2026年中（「2026年中は、見学・体験が無料です」と出ます）
+      - name: email
+        label: 連絡先メール
+        type: string
+        required: true
+      - name: instagram
+        label: InstagramのURL
+        type: string
+      - name: threads
+        label: ThreadsのURL
+        type: string
+      - name: youtube
+        label: YouTubeのURL
+        type: string

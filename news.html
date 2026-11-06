@@ -1,3 +1,7 @@
+---
+# このページの {{ }} の部分には、管理画面「サイトの基本情報」などの値が入る（GitHub Pages が組み立てるときに差し込む）
+---
+{%- assign s = site.data.site -%}
 <!doctype html>
 <html lang="ja">
 <head>
@@ -376,7 +380,7 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
   <div class="wrap">
     <div>
       <img class="logo" src="img/logo.svg" alt="東大阪吹奏楽団" width="850" height="300">
-      <p class="place">練習場所：東大阪文化創造館（近鉄奈良線「八戸ノ里」駅から徒歩5分）ほか、東大阪市内の公共施設</p>
+      <p class="place">練習場所：{{ s.practice_place }}</p>
     </div>
     <div>
       <nav aria-label="サイト内のページ"><ul>

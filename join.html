@@ -1,3 +1,7 @@
+---
+# このページの {{ }} の部分には、管理画面「サイトの基本情報」などの値が入る（GitHub Pages が組み立てるときに差し込む）
+---
+{%- assign s = site.data.site -%}
 <!doctype html>
 <html lang="ja">
 <head>
@@ -490,19 +494,18 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
 <div class="glance">
   <div class="wrap">
     <div class="ticket" data-rv="rise">
-      <span class="free">今年は無料！</span>
+      {% if s.campaign %}<span class="free">いまは無料！</span>{% endif %}
       <div class="t-main">
         <p class="t-top"><span>VISIT TICKET</span><span>東大阪吹奏楽団</span></p>
-        <p class="t-when"><b>毎週土曜</b><span>13:00 – 17:00</span></p>
+        <p class="t-when"><b>{{ s.practice_day }}</b><span>{{ s.practice_time }}</span></p>
         <dl class="t-rows">
-          <div><dt>場所</dt><dd>東大阪市内<small>公共施設を回ごとに</small></dd></div>
-          <div><dt>対象</dt><dd>中学生から大人まで<small>経験は問いません</small></dd></div>
+          <div><dt>場所</dt><dd>{{ s.practice_area }}<small>公共施設を回ごとに</small></dd></div>
+          <div><dt>対象</dt><dd>{{ s.target }}<small>経験は問いません</small></dd></div>
         </dl>
       </div>
       <div class="t-stub">
         <span class="k">見学</span>
-        <b>0<small>円</small></b>
-        <s>通常 1回500円</s>
+        {% if s.campaign %}<b>0<small>円</small></b><s>通常 1回{% include yen.html n=s.visit_fee %}円</s>{% else %}<b>{% include yen.html n=s.visit_fee %}<small>円/回</small></b>{% endif %}
         <i class="bar" aria-hidden="true"></i>
       </div>
     </div>
@@ -538,12 +541,12 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
     <div class="campaign" data-rv="rise">
       <span class="hand" aria-hidden="true">Campaign</span>
       <span class="k">見学・体験</span>
-      <div class="v"><b>0<small>円</small></b><s>通常 1回500円</s></div>
-      <p>2026年中は、見学・体験が無料です。<br>見学・体験は3回まで参加できます。</p>
+      <div class="v">{% if s.campaign %}<b>0<small>円</small></b><s>通常 1回{% include yen.html n=s.visit_fee %}円</s>{% else %}<b>{% include yen.html n=s.visit_fee %}<small>円/回</small></b>{% endif %}</div>
+      <p>{% if s.campaign %}{{ s.campaign_period }}は、見学・体験が無料です。<br>{% endif %}見学・体験は{{ s.visit_limit }}回まで参加できます。</p>
     </div>
     <dl class="fee-table" data-stagger="rise">
-      <div><dt>月会費（一般）<small>高校を卒業した方</small></dt><dd>3,000<small>円/月</small></dd></div>
-      <div><dt>月会費（学生）<small>中学生・高校生</small></dt><dd>1,500<small>円/月</small></dd></div>
+      <div><dt>月会費（一般）<small>高校を卒業した方</small></dt><dd>{% include yen.html n=s.fee_adult %}<small>円/月</small></dd></div>
+      <div><dt>月会費（学生）<small>中学生・高校生</small></dt><dd>{% include yen.html n=s.fee_student %}<small>円/月</small></dd></div>
     </dl>
     <ul class="fee-notes">
       <li>演奏会費はいただいていません。</li>
@@ -581,7 +584,7 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
     <ol class="steps" data-stagger="rise">
       <li><span class="no">1</span><div><h3>申し込む</h3><p>このページの下のフォームから。希望の日と楽器を教えてください。</p><span class="tip">約3分</span></div></li>
       <li><span class="no">2</span><div><h3>担当者から連絡</h3><p>メールで、日程と場所をご案内します。</p><span class="tip">ふつう2〜3日以内</span></div></li>
-      <li><span class="no">3</span><div><h3>見学・体験</h3><p>練習の雰囲気を見たり、いっしょに吹いたりできます。楽器がなくても大丈夫です。</p><span class="tip">3回まで</span></div></li>
+      <li><span class="no">3</span><div><h3>見学・体験</h3><p>練習の雰囲気を見たり、いっしょに吹いたりできます。楽器がなくても大丈夫です。</p><span class="tip">{{ s.visit_limit }}回まで</span></div></li>
       <li><span class="no">4</span><div><h3>入団</h3><p>団の説明のあと、入団フォームのQRコードをお渡しします。家でゆっくり決めてください。</p><span class="tip">焦らなくてOK</span></div></li>
     </ol>
   </div>
@@ -749,7 +752,7 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
     <p>ふつう2〜3日以内にお返事します。</p>
     <div class="ask-list" data-stagger="rise">
       <button type="button" class="ask-item" data-msg="本番では、お問い合わせフォームへ進みます。"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128A96,96,0,0,1,79.93,211.11h0L42.54,223.58a8,8,0,0,1-10.12-10.12l12.47-37.39h0A96,96,0,1,1,224,128Z" opacity="0.2"/><path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-4-1.08,7.85,7.85,0,0,0-2.53.42L40,216,52.47,178.6a8,8,0,0,0-.66-6.54A88,88,0,1,1,128,216Zm12-88a12,12,0,1,1-12-12A12,12,0,0,1,140,128Zm-44,0a12,12,0,1,1-12-12A12,12,0,0,1,96,128Zm88,0a12,12,0,1,1-12-12A12,12,0,0,1,184,128Z"/></svg><span><b>フォームで相談する</b><small>お問い合わせページ</small></span></button>
-      <div class="ask-item"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,56l-96,88L32,56Z" opacity="0.2"/><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg><span><b>メールで相談する</b><small id="mail-addr">higashiosaka.winds@gmail.com</small></span><button type="button" class="copy" id="mail-copy">コピー</button></div>
+      <div class="ask-item"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,56l-96,88L32,56Z" opacity="0.2"/><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg><span><b>メールで相談する</b><small id="mail-addr">{{ s.email }}</small></span><button type="button" class="copy" id="mail-copy">コピー</button></div>
     </div>
   </div>
 </section>
@@ -758,7 +761,7 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
   <div class="wrap">
     <div>
       <img class="logo" src="img/logo.svg" alt="東大阪吹奏楽団" width="850" height="300">
-      <p class="place">練習場所：東大阪文化創造館（近鉄奈良線「八戸ノ里」駅から徒歩5分）ほか、東大阪市内の公共施設</p>
+      <p class="place">練習場所：{{ s.practice_place }}</p>
     </div>
     <div>
       <nav aria-label="サイト内のページ"><ul>
@@ -851,7 +854,7 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
     renderDateChips(res.rows);
   }).catch(function (e) {
     console.warn('[join] 練習日の読み込みに失敗しました', e);
-    document.getElementById('sched-list').innerHTML = '<li class="sched-item"><span></span><div class="sched-info"><span class="place">日程を読み込めませんでした</span><span class="access">毎週土曜 13:00〜17:00、東大阪市内で練習しています。</span></div></li>';
+    document.getElementById('sched-list').innerHTML = '<li class="sched-item"><span></span><div class="sched-info"><span class="place">日程を読み込めませんでした</span><span class="access">{{ s.practice_day }} {{ s.practice_time }}、{{ s.practice_area }}で練習しています。</span></div></li>';
     document.getElementById('f-dates').innerHTML = '<span class="hint">候補日を読み込めませんでした。コメント欄にご希望を書いてください。</span>';
   });
 
