@@ -426,9 +426,10 @@ html { scroll-behavior: smooth; scroll-padding-top: 82px; }
 /* =========================================================
    お知らせ・活動日記
    ========================================================= */
-.news { padding-block: 10px 50px; background: var(--mint); overflow: hidden; }
-.news .big-en { font-size: clamp(96px, 30vw, 200px); text-align: center; margin-bottom: -.42em; opacity: .95; }
-.news .h2 { position: relative; text-align: center; margin-bottom: 26px; }
+.news, .stage { padding-block: 10px 50px; background: var(--mint); overflow: hidden; }
+.stage { padding-bottom: 20px; }
+.news .big-en, .stage .big-en { font-size: clamp(96px, 30vw, 200px); text-align: center; margin-bottom: -.42em; opacity: .95; }
+.news .h2, .stage .h2 { position: relative; text-align: center; margin-bottom: 26px; }
 .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px 14px; list-style: none; margin: 0; padding: 0; }
 .cards a { display: block; text-decoration: none; transition: translate .3s var(--bounce); }
 .cards a:hover { translate: 0 -6px; }
@@ -555,8 +556,8 @@ html { scroll-behavior: smooth; scroll-padding-top: 82px; }
 .feature-card .txt b { display: block; margin-top: 6px; font-size: 24px; font-weight: 900; letter-spacing: .08em; line-height: 1.35; word-break: keep-all; }
 .feature-card .txt time { display: block; margin-top: 4px; font-family: var(--en); font-size: 22px; font-weight: 500; letter-spacing: .06em; }
 .feature-card .txt span { display: block; font-size: 14px; font-weight: 700; }
-.feature .next-ev { margin: 18px 0 0; font-size: 14px; font-weight: 700; text-align: center; }
-.feature .next-ev a { text-decoration: underline; text-underline-offset: 4px; }
+.stage .next-ev { margin: 18px 0 0; font-size: 14px; font-weight: 700; text-align: center; }
+.stage .next-ev a { text-decoration: underline; text-underline-offset: 4px; }
 
 /* 次の演奏会：これからの本番を、横にめくるカルーセルで回す */
 .pk-track { display: flex; gap: 14px; margin: 0 -4px; padding: 4px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
@@ -776,10 +777,10 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
 <nav class="toc" id="toc" aria-label="このページの目次">
   <ul>
     <li><a href="#status">募集・見学</a></li>
+    <li><a href="#stage">演奏会</a></li>
     <li><a href="#news">お知らせ・活動日記</a></li>
     <li><a href="#about">ひがすいって？</a></li>
     <li><a href="#for">どのタイプ？</a></li>
-    <li><a href="#festa">次の演奏会</a></li>
     <li><a href="#sns">SNS</a></li>
     <li><a class="to-apply" href="join.html#apply">見学を申し込む</a></li>
   </ul>
@@ -831,6 +832,31 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
         出演依頼・地域のご相談
       </button>
     </div>
+  </div>
+</section>
+
+<!-- ================= これからの演奏会（お知らせの上） ================= -->
+<section class="stage" id="stage">
+  <span class="big-en" aria-hidden="true" data-drift="-0.25">STAGE</span>
+  <div class="wrap">
+    <h2 class="h2">これからの演奏会</h2>
+    <!-- これからの本番を events.json（管理画面「演奏会・イベント」）から並べて、自動で回す。
+         「トップページに大きく出す」がオンの本番が先頭。本番がないときは、いちばん新しい「これまで」を1枚出す -->
+    <div class="pk" id="pickup" aria-roledescription="カルーセル" aria-label="次の演奏会">
+      <div class="pk-track" id="pk-track">
+        <a class="feature-card" href="events.html" data-rv="zoom">
+          <img src="img/ph-concert.webp" alt="" loading="lazy" width="1200" height="800">
+          <span class="txt"><span class="hand">Next stage</span><b>演奏会・イベント</b><time>&nbsp;</time><span>&nbsp;</span></span>
+        </a>
+      </div>
+      <div class="pk-ctrl" id="pk-ctrl" hidden>
+        <button type="button" class="pk-btn" data-dir="-1" aria-label="前の本番">‹</button>
+        <div class="pk-dots" id="pk-dots"></div>
+        <span class="pk-num" id="pk-num"></span>
+        <button type="button" class="pk-btn" data-dir="1" aria-label="次の本番">›</button>
+      </div>
+    </div>
+    <p class="next-ev" id="pickup-note"><a href="events.html">演奏会・イベントの予定を見る</a></p>
   </div>
 </section>
 
@@ -959,27 +985,8 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
   </div>
 </section>
 
-<!-- ================= 演奏会の特集 ================= -->
-<section class="feature" id="festa">
-  <div class="wrap">
-    <!-- これからの本番を events.json（管理画面「演奏会・イベント」）から並べて、自動で回す。
-         「トップページに大きく出す」がオンの本番が先頭。本番がないときは、いちばん新しい「これまで」を1枚出す -->
-    <div class="pk" id="pickup" aria-roledescription="カルーセル" aria-label="次の演奏会">
-      <div class="pk-track" id="pk-track">
-        <a class="feature-card" href="events.html" data-rv="zoom">
-          <img src="img/ph-concert.webp" alt="" loading="lazy" width="1200" height="800">
-          <span class="txt"><span class="hand">Next stage</span><b>演奏会・イベント</b><time>&nbsp;</time><span>&nbsp;</span></span>
-        </a>
-      </div>
-      <div class="pk-ctrl" id="pk-ctrl" hidden>
-        <button type="button" class="pk-btn" data-dir="-1" aria-label="前の本番">‹</button>
-        <div class="pk-dots" id="pk-dots"></div>
-        <span class="pk-num" id="pk-num"></span>
-        <button type="button" class="pk-btn" data-dir="1" aria-label="次の本番">›</button>
-      </div>
-    </div>
-    <p class="next-ev" id="pickup-note"><a href="events.html">演奏会・イベントの予定を見る</a></p>
-  </div>
+<!-- ================= 花園ラグビー場の飾り ================= -->
+<section class="feature" aria-hidden="true">
   <div class="ridge" aria-hidden="true">
     <div class="stadium" data-rv="land"><img class="lm" src="img/lm-stadium.webp" alt="" loading="lazy" width="1600" height="569"><span class="place-tag">花園ラグビー場</span></div>
     <img class="paint-strip" src="img/back.webp" alt="" loading="lazy" width="1672" height="941">
