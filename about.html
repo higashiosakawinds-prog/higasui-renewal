@@ -292,6 +292,12 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
 .cond-name small { display: block; margin-top: 4px; font-size: 12px; font-weight: 700; letter-spacing: .2em; opacity: .75; }
 .cond .part { display: inline-block; margin-top: 10px; padding: 2px 12px; border: 1.5px solid rgba(255, 255, 255, .5); border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: .06em; }
 .cond .msg { margin: 14px 0 0; font-size: 14px; line-height: 1.9; opacity: .9; }
+.cond .bio { margin-top: 14px; }
+.cond .bio summary { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 999px; background: rgba(255, 255, 255, .12); font-size: 13px; font-weight: 900; letter-spacing: .1em; cursor: pointer; list-style: none; }
+.cond .bio summary::-webkit-details-marker { display: none; }
+.cond .bio summary::after { content: "＋"; color: var(--c); }
+.cond .bio[open] summary::after { content: "－"; }
+.cond .bio p { margin: 12px 0 0; font-size: 13.5px; line-height: 2; opacity: .88; }
 
 .staff { list-style: none; margin: 30px 0 0; padding: 0; display: grid; gap: 12px; }
 .staff > li { display: grid; grid-template-columns: 84px 1fr; gap: 16px; align-items: center; padding: 16px 18px; background: var(--mint); border-radius: 24px; }
@@ -439,6 +445,9 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
   .cond-name { font-size: 52px; }
   .cond-name small { font-size: 14px; }
   .cond .msg { font-size: 15px; max-width: 30em; }
+  /* 略歴を開いて文が長くなったら、紺の台を上まで広げて、名前が白地にはみ出さないようにする */
+  .cond:has(.bio[open]) .cond-base { top: 0; }
+  .cond:has(.bio[open]) .cond-txt { padding-top: 48px; }
   .staff { grid-template-columns: 1.7fr 1fr; gap: 18px; margin-top: 40px; align-items: start; }
   .staff > .gm-card { grid-template-columns: 230px 1fr; gap: 12px 30px; padding: 60px 34px 30px; }
   .gm-card .av { width: 230px; height: 230px; }
@@ -494,7 +503,7 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
     <img class="who danno" src="img/cut-conductor.webp" alt="" width="820" height="1098">
     <img class="town" src="img/town.webp" alt="" width="2172" height="724">
     <p class="who-tag t-tani">谷 将大<small>ゼネラルマネージャー</small></p>
-    <p class="who-tag t-matsu">松村 奏多<small>団長・指揮</small></p>
+    <p class="who-tag t-matsu">松村 奏汰<small>団長・指揮</small></p>
     <p class="who-tag t-danno">段野 王海<small>指揮</small></p>
     <div class="edge"></div>
   </div>
@@ -599,16 +608,22 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
           <span class="role">指揮</span>
           <h3 class="cond-name">段野 王海<small>だんの たかみ</small></h3>
           <span class="part">B♭クラリネット</span>
-          <p class="msg">略歴は準備中です。</p>
+          <p class="msg">2026年11月より東大阪吹奏楽団指揮者に就任。<br>趣味は読書とコーヒー。最近は『人間失格』を読んで泣く。</p>
+          <details class="bio">
+            <summary>略歴を読む</summary>
+            <p>中学時代に吹奏楽部でクラリネットを始める。大学では吹奏楽部を設立し、同団体で指揮を始める。また、兼部していた弦楽部ではヴィオラを担当。大学オーケストラの設立にも携わり、第一回演奏会ではベートーヴェンの交響曲第7番などを指揮する。</p>
+            <p>学外では、関西学生メモリアルコンサート2026で指揮を務めたほか、Worldship Orchestraの2026年夏カンボジア・プロジェクトでは、《韃靼人の踊り》のカンボジア初演を含む全曲を指揮。その後、同団体の広島ツアーでも指揮を務める。</p>
+            <p>2026年11月より東大阪吹奏楽団指揮者に就任。現在、指揮を黃柏瑄（Po-Hsuan Huang）および上田真紀郎に師事。専門は生命科学。</p>
+          </details>
         </div>
       </article>
 
       <article class="cond flip" style="--c: var(--sky)" data-rv="rise">
         <div class="cond-base" aria-hidden="true"><span>CONDUCTOR</span></div>
-        <figure class="cond-ph"><img src="img/cut-matsumura.webp" alt="ピースをする松村 奏多" width="820" height="1163" loading="lazy"></figure>
+        <figure class="cond-ph"><img src="img/cut-matsumura.webp" alt="ピースをする松村 奏汰" width="820" height="1163" loading="lazy"></figure>
         <div class="cond-txt">
           <span class="role">団長・指揮</span>
-          <h3 class="cond-name">松村 奏多<small>まつむら かなた</small></h3>
+          <h3 class="cond-name">松村 奏汰<small>まつむら かなた</small></h3>
           <span class="part">バリトンサックス</span>
           <p class="msg">プロフィールは準備中です。</p>
         </div>
