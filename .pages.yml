@@ -163,7 +163,7 @@ content:
         label: トップページに大きく出す
         type: boolean
         default: false
-        description: オンにすると、トップページの「次の演奏会」の欄にこの本番が出ます（オンが複数あるときは日付が近いもの）。どれもオンでないときは、いちばん近い本番が出ます。
+        description: トップページの「次の演奏会」には、これからの本番がすべて順番に回って出ます。オンにすると、その中でいちばん先頭に出ます。
       - name: pickup_image
         label: トップページ用の写真（横長）
         type: image

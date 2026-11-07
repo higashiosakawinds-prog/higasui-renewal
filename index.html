@@ -557,6 +557,28 @@ html { scroll-behavior: smooth; scroll-padding-top: 82px; }
 .feature-card .txt span { display: block; font-size: 14px; font-weight: 700; }
 .feature .next-ev { margin: 18px 0 0; font-size: 14px; font-weight: 700; text-align: center; }
 .feature .next-ev a { text-decoration: underline; text-underline-offset: 4px; }
+
+/* 次の演奏会：これからの本番を、横にめくるカルーセルで回す */
+.pk-track { display: flex; gap: 14px; margin: 0 -4px; padding: 4px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.pk-track::-webkit-scrollbar { display: none; }
+.pk-track > .feature-card { flex: 0 0 100%; scroll-snap-align: center; }
+.feature-card .txt time.tbd { font-family: var(--jp); font-size: 15px; font-weight: 700; letter-spacing: .04em; line-height: 1.6; }
+.feature-card .count { position: absolute; z-index: 3; right: 16px; top: 16px; display: grid; place-content: center; justify-items: center; width: 74px; height: 74px; border-radius: 50%; background: var(--sun); color: var(--navy); line-height: 1; rotate: 8deg; box-shadow: 0 6px 16px rgba(0, 0, 0, .25); }
+.feature-card .count small { font-size: 10px; font-weight: 900; letter-spacing: .08em; }
+.feature-card .count b { margin: 1px 0; font-family: var(--en); font-size: 26px; font-weight: 700; letter-spacing: -.02em; }
+.feature-card .kind { position: absolute; z-index: 3; left: 16px; top: 16px; padding: 3px 12px; border-radius: 999px; background: #fff; color: var(--navy); font-size: 12px; font-weight: 900; letter-spacing: .08em; }
+.pk-ctrl { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 16px; }
+.pk-ctrl[hidden] { display: none; }
+.pk-btn { display: grid; place-items: center; width: 42px; height: 42px; border: 0; border-radius: 50%; background: var(--navy); color: #fff; font-size: 22px; line-height: 1; cursor: pointer; transition: translate .2s var(--bounce); }
+.pk-btn:hover { translate: 0 -2px; }
+.pk-dots { display: flex; align-items: center; gap: 8px; }
+.pk-dots button { position: relative; width: 10px; height: 10px; padding: 0; border: 0; border-radius: 999px; background: var(--line); overflow: hidden; cursor: pointer; transition: width .35s var(--ease); }
+.pk-dots button[aria-current="true"] { width: 44px; background: rgba(11, 19, 46, .18); }
+.pk-dots button[aria-current="true"]::after { content: ""; position: absolute; inset: 0; background: var(--navy); transform-origin: left; animation: pk-fill var(--pk-ms, 5000ms) linear forwards; }
+.pk.paused .pk-dots button[aria-current="true"]::after { animation: none; transform: none; }
+.pk-num { min-width: 3.2em; font-family: var(--en); font-size: 14px; font-weight: 700; letter-spacing: .1em; text-align: center; }
+@keyframes pk-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .pk-dots button[aria-current="true"]::after { animation: none; } }
 /* 生駒山の絵の区切り。ラグビー場が丘の向こうからのぞく */
 .ridge { position: relative; height: 230px; margin-top: 10px; overflow: hidden; }
 .ridge .stadium { position: absolute; z-index: 1; right: 4%; bottom: 60%; width: 58%; }
@@ -685,6 +707,9 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
   .daily .track { grid-auto-columns: 26%; }
   .sns-links { grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
   .feature-card { aspect-ratio: 21 / 9; }
+  .feature-card .count { width: 104px; height: 104px; right: 28px; top: 28px; }
+  .feature-card .count b { font-size: 38px; }
+  .feature-card .kind { left: 28px; top: 28px; font-size: 13px; }
   .feature-card .txt { left: 44px; bottom: 34px; }
   .feature-card .txt b { font-size: 34px; }
   .ridge { height: 320px; }
@@ -937,16 +962,22 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
 <!-- ================= 演奏会の特集 ================= -->
 <section class="feature" id="festa">
   <div class="wrap">
-    <!-- 中身は events.json（管理画面「演奏会・イベント」）から入れる。「トップページに大きく出す」がオンの本番 → なければいちばん近い本番 -->
-    <a class="feature-card" id="pickup-card" href="events.html" data-rv="zoom">
-      <img src="img/ph-concert.webp" alt="" loading="lazy" width="1200" height="800">
-      <span class="txt">
-        <span class="hand">Next stage</span>
-        <b>演奏会・イベント</b>
-        <time>&nbsp;</time>
-        <span>&nbsp;</span>
-      </span>
-    </a>
+    <!-- これからの本番を events.json（管理画面「演奏会・イベント」）から並べて、自動で回す。
+         「トップページに大きく出す」がオンの本番が先頭。本番がないときは、いちばん新しい「これまで」を1枚出す -->
+    <div class="pk" id="pickup" aria-roledescription="カルーセル" aria-label="次の演奏会">
+      <div class="pk-track" id="pk-track">
+        <a class="feature-card" href="events.html" data-rv="zoom">
+          <img src="img/ph-concert.webp" alt="" loading="lazy" width="1200" height="800">
+          <span class="txt"><span class="hand">Next stage</span><b>演奏会・イベント</b><time>&nbsp;</time><span>&nbsp;</span></span>
+        </a>
+      </div>
+      <div class="pk-ctrl" id="pk-ctrl" hidden>
+        <button type="button" class="pk-btn" data-dir="-1" aria-label="前の本番">‹</button>
+        <div class="pk-dots" id="pk-dots"></div>
+        <span class="pk-num" id="pk-num"></span>
+        <button type="button" class="pk-btn" data-dir="1" aria-label="次の本番">›</button>
+      </div>
+    </div>
     <p class="next-ev" id="pickup-note"><a href="events.html">演奏会・イベントの予定を見る</a></p>
   </div>
   <div class="ridge" aria-hidden="true">
@@ -1207,34 +1238,93 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
       newsBox.hidden = true;   // 読めないときは「一覧を見る」だけ出す
     });
 
-  // 次の演奏会：events.json から「トップページに大きく出す」の本番（なければいちばん近い本番）を出す
+  // 次の演奏会：events.json のこれからの本番をカルーセルで回す（5秒ごと。さわっている間・画面の外では止まる）
   (function () {
-    var card = document.getElementById('pickup-card'), note = document.getElementById('pickup-note');
-    var WD_EN = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+    var box = document.getElementById('pickup'), track = document.getElementById('pk-track');
+    var dotsBox = document.getElementById('pk-dots'), num = document.getElementById('pk-num'), note = document.getElementById('pickup-note');
+    var MS = 5000, WD_EN = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     var today;
     try { today = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Tokyo' }).format(new Date()); } catch (e) { today = new Date().toISOString().slice(0, 10); }
     function ok(u) { return /^(https?:\/\/|img\/)/.test(u || '') ? u : ''; }
+    function ymd(s) { var m = String(s).match(/^(\d{4})-(\d{2})-(\d{2})/); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; }
+    var slides = [], cur = 0, timer = null, visible = false, holdUntil = 0;
+
+    function cardHtml(e, past) {
+      var d = ymd(e.date), t0 = ymd(today), days = Math.round((d - t0) / 86400000);
+      var img = ok(e.pickup_image) || ok(e.cover_url) || (e.photos && ok(e.photos[0])) || 'img/ph-concert.webp';
+      var when = e.when_text ? escNews(e.when_text) : d.getFullYear() + '.' + (d.getMonth() + 1) + '.' + d.getDate() + ' ' + WD_EN[d.getDay()] + (e.time ? ' ' + escNews(e.time) : '');
+      var count = past || e.when_text ? '' : '<span class="count">' + (days === 0 ? '<b style="font-family:var(--jp);font-size:18px">本日</b>' : '<small>あと</small><b>' + days + '</b><small>日</small>') + '</span>';
+      return '<a class="feature-card" href="events.html#event-' + encodeURIComponent(e.id) + '">' +
+        '<img src="' + escNews(img) + '" alt="" loading="lazy">' + count +
+        '<span class="kind">' + (past ? 'これまでの演奏会' : escNews(e.kind || '出演')) + '</span>' +
+        '<span class="txt"><span class="hand">' + (past ? 'Thank you!' : e.kind === '主催演奏会' ? 'Our concert' : 'Next stage') + '</span>' +
+        '<b>' + escNews(e.title) + '</b><time' + (e.when_text ? ' class="tbd"' : '') + '>' + when + '</time>' +
+        '<span>' + escNews(e.place) + (e.fee && !past ? '<br>' + escNews(e.fee) : '') + '</span></span></a>';
+    }
+    function noteHtml(e) {
+      var link = ok(e.link_url);
+      return (e.summary ? escNews(e.summary) + '<br>' : '') +
+        (link && String(e.date).slice(0, 10) >= today ? '<a href="' + escNews(link) + '" target="_blank" rel="noopener">' + escNews(e.link_label || 'くわしくはこちら') + '</a>　' : '') +
+        '<a href="events.html">ほかの予定も見る</a>';
+    }
+    function setCur(i) {
+      cur = (i + slides.length) % slides.length;
+      [].forEach.call(dotsBox.children, function (b, k) { b.setAttribute('aria-current', String(k === cur)); });
+      num.textContent = (cur + 1) + ' / ' + slides.length;
+      note.innerHTML = noteHtml(slides[cur]);
+    }
+    function go(i, smooth) {
+      var n = (i + slides.length) % slides.length;
+      track.scrollTo({ left: track.children[n].offsetLeft - track.firstElementChild.offsetLeft, behavior: smooth === false || reduce ? 'auto' : 'smooth' });
+      setCur(n);
+    }
+    function tick() { if (visible && !document.hidden && Date.now() >= holdUntil) go(cur + 1); }
+    function restart() {   // ドットの帯を最初から流しなおす
+      clearInterval(timer);
+      if (reduce || slides.length < 2) return;
+      var d = dotsBox.children[cur]; if (d) { d.removeAttribute('aria-current'); void d.offsetWidth; d.setAttribute('aria-current', 'true'); }
+      timer = setInterval(function () { tick(); restart(); }, MS);
+    }
+    function hold() { holdUntil = Date.now() + 8000; box.classList.add('paused'); clearInterval(timer); clearTimeout(hold.t); hold.t = setTimeout(function () { box.classList.remove('paused'); restart(); }, 8000); }
+
     fetch('events.json', { cache: 'no-cache' })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (rows) {
+        rows = rows.filter(function (e) { return ymd(e.date); });
         var up = rows.filter(function (e) { return String(e.date).slice(0, 10) >= today; })
-          .sort(function (a, b) { return String(a.date).localeCompare(String(b.date)); });
-        var e = up.filter(function (x) { return x.pickup; })[0] || up[0];
-        if (!e) return;   // 予定がないときは「予定を見る」だけ
-        var m = String(e.date).match(/^(\d{4})-(\d{2})-(\d{2})/), wd = new Date(+m[1], +m[2] - 1, +m[3]).getDay();
-        var img = ok(e.pickup_image) || ok(e.cover_url) || 'img/ph-concert.webp';
-        card.href = 'events.html#event-' + encodeURIComponent(e.id);
-        card.innerHTML = '<img src="' + escNews(img) + '" alt="" loading="lazy">' +
-          '<span class="txt"><span class="hand">' + (e.kind === '主催演奏会' ? 'Our concert' : 'Next stage') + '</span>' +
-          '<b>' + escNews(e.title) + '</b>' +
-          '<time>' + (e.when_text ? escNews(e.when_text) : (+m[1]) + '.' + (+m[2]) + '.' + (+m[3]) + ' ' + WD_EN[wd] + (e.time ? ' ' + escNews(e.time) : '')) + '</time>' +
-          '<span>' + escNews(e.place) + (e.fee ? '<br>' + escNews(e.fee) : '') + '</span></span>';
-        var link = ok(e.link_url);
-        note.innerHTML = (e.summary ? escNews(e.summary) + '<br>' : '') +
-          (link ? '<a href="' + escNews(link) + '" target="_blank" rel="noopener">' + escNews(e.link_label || 'くわしくはこちら') + '</a>　' : '') +
-          '<a href="events.html">ほかの予定も見る</a>';
+          .sort(function (a, b) { return (b.pickup ? 1 : 0) - (a.pickup ? 1 : 0) || String(a.date).localeCompare(String(b.date)); });
+        var past = false;
+        if (!up.length) {   // 予定がないときは、いちばん新しい「これまで」を1枚
+          up = rows.sort(function (a, b) { return String(b.date).localeCompare(String(a.date)); }).slice(0, 1); past = true;
+        }
+        if (!up.length) return;
+        slides = up;
+        track.innerHTML = up.map(function (e) { return cardHtml(e, past); }).join('');
+        document.getElementById('pk-ctrl').hidden = up.length < 2;
+        dotsBox.innerHTML = up.map(function (e, i) { return '<button type="button" aria-label="' + (i + 1) + '枚目：' + escNews(e.title) + '"></button>'; }).join('');
+        box.style.setProperty('--pk-ms', MS + 'ms');
+        setCur(0);
+        if ('IntersectionObserver' in window) {
+          new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible) restart(); else clearInterval(timer); }, { threshold: .4 }).observe(box);
+        } else { visible = true; restart(); }
       })
       .catch(function (err) { console.warn('[top] 演奏会を読み込めませんでした', err); });
+
+    // 指でめくったとき：止まった位置の1枚を「いま」にする
+    var st;
+    track.addEventListener('scroll', function () {
+      clearTimeout(st);
+      st = setTimeout(function () {
+        if (!slides.length) return;
+        var w = track.firstElementChild.offsetWidth + 14, i = Math.round(track.scrollLeft / w);
+        if (i !== cur) { setCur(i); restart(); }
+      }, 120);
+    }, { passive: true });
+    ['pointerdown', 'touchstart', 'wheel'].forEach(function (ev) { track.addEventListener(ev, hold, { passive: true }); });
+    box.addEventListener('mouseenter', function () { box.classList.add('paused'); clearInterval(timer); holdUntil = Infinity; });
+    box.addEventListener('mouseleave', function () { box.classList.remove('paused'); holdUntil = 0; restart(); });
+    [].forEach.call(box.querySelectorAll('.pk-btn'), function (b) { b.addEventListener('click', function () { go(cur + +b.dataset.dir); restart(); }); });
+    dotsBox.addEventListener('click', function (ev) { var b = ev.target.closest('button'); if (!b) return; go([].indexOf.call(dotsBox.children, b)); restart(); });
   })();
 
   // 試作なので、押したら行き先を表示する
