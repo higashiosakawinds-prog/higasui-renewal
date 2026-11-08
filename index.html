@@ -340,8 +340,10 @@ html.splashing .hero-logo { opacity: 0; }
 }
 .place-tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--coral); }
 
-html { scroll-behavior: smooth; scroll-padding-top: 82px; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+html { scroll-padding-top: 82px; }
+html.smooth { scroll-behavior: smooth; }
+@media (min-width: 760px) { html { scroll-padding-top: 104px; } }
+@media (prefers-reduced-motion: reduce) { html.smooth { scroll-behavior: auto; } }
 
 /* =========================================================
    追いかけてくる目次（ヒーローを過ぎたら、上に出てくる）
@@ -1345,6 +1347,29 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
       clearTimeout(timer);
       timer = setTimeout(function () { toast.hidden = true; }, 3000);
     });
+  });
+})();
+</script>
+<script>
+/* リンク先（ページ名#場所）へ飛ぶとき：開いた瞬間にその場所から表示する。
+   写真や予定などがあとから入って位置がずれても、さわる前なら合わせなおす。
+   なめらかなスクロールは、開き終わってから（ページ内の移動だけ）にする。 */
+(function () {
+  var de = document.documentElement, touched = false;
+  ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) {
+    addEventListener(ev, function () { touched = true; }, { passive: true, once: true });
+  });
+  function fix() {
+    if (touched || !location.hash) return;
+    var el = null;
+    try { el = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch (e) {}
+    if (el && !el.closest('[hidden]')) el.scrollIntoView({ block: 'start', behavior: 'auto' });
+  }
+  fix();
+  addEventListener('DOMContentLoaded', fix);
+  addEventListener('load', function () {
+    fix(); setTimeout(fix, 400);
+    setTimeout(function () { fix(); de.classList.add('smooth'); }, 1200);
   });
 })();
 </script>
