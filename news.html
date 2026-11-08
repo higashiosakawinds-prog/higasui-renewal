@@ -322,12 +322,80 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
   .article .wrap { max-width: 860px; }
   .art-body { font-size: 17px; }
 }
+
+/* =========================================================
+   ハンバーガーメニュー（全ページ共通）
+   右上のボタンを押すと、ボタンの位置から紺の画面が丸く広がる
+   ========================================================= */
+.menu { transition: background-color .3s; }
+.menu i { transition: width .25s var(--bounce), translate .35s var(--ease), rotate .35s var(--ease), opacity .2s, background-color .3s; }
+.menu[aria-expanded="true"] { background: var(--sun); }
+.menu[aria-expanded="true"] i { width: 24px; background: var(--navy); }
+.menu[aria-expanded="true"] i:nth-child(1) { translate: 0 9px; rotate: 45deg; }
+.menu[aria-expanded="true"] i:nth-child(2) { opacity: 0; }
+.menu[aria-expanded="true"] i:nth-child(3) { translate: 0 -9px; rotate: -45deg; }
+html.menu-open { overflow: hidden; }
+html.menu-open .fixed-cta, html.menu-open .toc { visibility: hidden; }
+.gnav { position: fixed; inset: 0; z-index: 29; overflow-y: auto; overscroll-behavior: contain; background: var(--navy); color: #fff; visibility: hidden; clip-path: circle(0 at var(--mx, 90%) var(--my, 40px)); transition: clip-path .55s var(--ease), visibility 0s .55s; }
+.gnav.open { visibility: visible; clip-path: circle(150vmax at var(--mx, 90%) var(--my, 40px)); transition: clip-path .6s var(--ease); }
+.gnav .bg-en { position: absolute; left: -.06em; bottom: -.16em; font-family: "Rubik Dirt", var(--en); font-size: clamp(120px, 40vw, 360px); line-height: 1; color: #fff; opacity: .06; pointer-events: none; }
+.gnav-in { position: relative; min-height: 100%; display: grid; align-content: start; gap: 26px; padding: calc(90px + env(safe-area-inset-top, 0px)) max(24px, env(safe-area-inset-right, 0px)) 40px max(24px, env(safe-area-inset-left, 0px)); max-width: 1080px; margin: 0 auto; box-sizing: border-box; }
+.gnav .hand { position: absolute; top: calc(26px + env(safe-area-inset-top, 0px)); left: max(24px, env(safe-area-inset-left, 0px)); font-size: 34px; color: var(--sun); rotate: -6deg; }
+.gnav-list { margin: 0; padding: 0; list-style: none; }
+.gnav-list a { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 13px 4px 12px; border-bottom: 1px dashed rgba(255, 255, 255, .22); color: #fff; text-decoration: none; transition: translate .3s var(--bounce), color .2s; }
+.gnav-list a b { font-size: clamp(22px, 6.6vw, 34px); font-weight: 900; letter-spacing: .08em; line-height: 1.35; }
+.gnav-list a small { font-family: var(--en); font-size: 12px; font-weight: 700; letter-spacing: .3em; color: var(--sky); }
+.gnav-list a:hover { translate: 8px 0; color: var(--sun); }
+.gnav-list a[aria-current="page"] b { color: var(--sun); }
+.gnav-list a[aria-current="page"] b::before { content: ""; display: inline-block; width: .32em; height: .32em; margin: 0 .35em .18em 0; border-radius: 50%; background: var(--sun); vertical-align: middle; }
+.gnav-cta { display: grid; justify-items: center; gap: 4px; padding: 20px 18px; border-radius: 26px; background: var(--coral); color: #fff; text-decoration: none; text-align: center; transition: translate .3s var(--bounce); }
+.gnav-cta:hover { translate: 0 -4px; }
+.gnav-cta b { font-size: 22px; font-weight: 900; letter-spacing: .12em; }
+.gnav-cta span { font-size: 13px; font-weight: 700; opacity: .95; }
+.gnav-sub { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.gnav-sub a { display: inline-block; padding: 7px 16px; border-radius: 999px; background: rgba(255, 255, 255, .1); color: #fff; font-size: 14px; font-weight: 700; text-decoration: none; }
+.gnav-sub a:hover { background: rgba(255, 255, 255, .2); }
+@media (prefers-reduced-motion: no-preference) {
+  .gnav.open .gnav-list li, .gnav.open .gnav-cta, .gnav.open .gnav-sub { animation: gn-rise .5s var(--ease) calc(.18s + var(--i, 0) * .05s) backwards; }
+  .gnav.open .hand { animation: gn-rise .5s var(--ease) .1s backwards; }
+}
+@media (prefers-reduced-motion: reduce) { .gnav, .gnav.open { transition: none; } }
+@keyframes gn-rise { from { translate: 0 24px; opacity: .001; } }
+@media (min-width: 760px) {
+  .gnav-in { grid-template-columns: 1.3fr 1fr; align-content: center; column-gap: 60px; row-gap: 18px; padding-top: 130px; padding-bottom: 60px; }
+  .gnav-cta { align-self: end; }
+  .gnav-sub { align-self: start; }
+  .gnav-list { grid-row: 1 / span 2; }
+  .gnav-list a { padding: 16px 6px 14px; }
+  .gnav .hand { top: 40px; left: max(40px, env(safe-area-inset-left, 0px)); font-size: 44px; }
+}
 </style>
 </head>
 <body>
 
 <a class="logo-tab" href="index.html" aria-label="東大阪吹奏楽団 トップへ"><img src="img/logo.svg" alt="東大阪吹奏楽団" width="850" height="300"></a>
-<button type="button" class="menu" data-msg="本番では、ここにメニューが開きます。" aria-label="メニュー"><i></i><i></i><i></i></button>
+<button type="button" class="menu" aria-label="メニュー" aria-expanded="false" aria-controls="gnav"><i></i><i></i><i></i></button>
+<nav class="gnav" id="gnav" aria-label="サイトのメニュー" aria-hidden="true" inert>
+  <span class="bg-en" aria-hidden="true">MENU</span>
+  <div class="gnav-in">
+    <span class="hand" aria-hidden="true">Let's play!</span>
+    <ul class="gnav-list">
+      <li style="--i:0"><a href="index.html"><b>トップ</b><small>HOME</small></a></li>
+      <li style="--i:1"><a href="about.html"><b>団体紹介</b><small>ABOUT</small></a></li>
+      <li style="--i:2"><a href="join.html"><b>見学・入団</b><small>JOIN</small></a></li>
+      <li style="--i:3"><a href="events.html"><b>演奏会・イベント</b><small>STAGE</small></a></li>
+      <li style="--i:4"><a href="news.html"><b>お知らせ・活動日記</b><small>NEWS</small></a></li>
+      <li style="--i:5"><a href="contact.html"><b>お問い合わせ</b><small>CONTACT</small></a></li>
+    </ul>
+    <a class="gnav-cta" href="join.html#apply" style="--i:6"><b>見学を申し込む</b><span>{{ s.practice_day }} {{ s.practice_time }}・{% if s.campaign %}{{ s.campaign_period }}は見学無料{% else %}見学は1回{% include yen.html n=s.visit_fee %}円{% endif %}</span></a>
+    <ul class="gnav-sub" style="--i:7">
+      <li><a href="rules.html">定款</a></li>
+      {% if s.instagram %}<li><a href="{{ s.instagram }}" target="_blank" rel="noopener">Instagram</a></li>{% endif %}
+      {% if s.threads %}<li><a href="{{ s.threads }}" target="_blank" rel="noopener">Threads</a></li>{% endif %}
+      {% if s.youtube %}<li><a href="{{ s.youtube }}" target="_blank" rel="noopener">YouTube</a></li>{% endif %}
+    </ul>
+  </div>
+</nav>
 
 <!-- ================= 一覧 ================= -->
 <div id="list-view">
@@ -582,6 +650,31 @@ footer small { display: block; font-family: var(--en); letter-spacing: .06em; co
     fix(); setTimeout(fix, 400);
     setTimeout(function () { fix(); de.classList.add('smooth'); }, 1200);
   });
+})();
+</script>
+<script>
+/* ハンバーガーメニュー：開く・閉じる（Escキー・リンクを押したときも閉じる）。いまのページに印をつける */
+(function () {
+  var btn = document.querySelector('.menu'), nav = document.getElementById('gnav'), de = document.documentElement;
+  if (!btn || !nav) return;
+  var page = location.pathname.split('/').pop() || 'index.html';
+  [].forEach.call(nav.querySelectorAll('.gnav-list a'), function (a) { if (a.getAttribute('href') === page) a.setAttribute('aria-current', 'page'); });
+  function set(open, focus) {
+    var r = btn.getBoundingClientRect();
+    nav.style.setProperty('--mx', (r.left + r.width / 2) + 'px');
+    nav.style.setProperty('--my', (r.top + r.height / 2) + 'px');
+    nav.classList.toggle('open', open);
+    nav.inert = !open;
+    nav.setAttribute('aria-hidden', String(!open));
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニュー');
+    de.classList.toggle('menu-open', open);
+    if (open) setTimeout(function () { var a = nav.querySelector('.gnav-list a'); if (a) a.focus({ preventScroll: true }); }, 350);
+    else if (focus) btn.focus({ preventScroll: true });
+  }
+  btn.addEventListener('click', function () { set(!nav.classList.contains('open'), true); });
+  addEventListener('keydown', function (e) { if (e.key === 'Escape' && nav.classList.contains('open')) set(false, true); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) set(false, false); });
 })();
 </script>
 </body>
