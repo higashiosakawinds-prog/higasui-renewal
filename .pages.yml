@@ -334,3 +334,116 @@ content:
       - name: youtube
         label: YouTubeのURL
         type: string
+
+  # ---------------------------------------------------------
+  # 定款（rules.html に出る。章・条の番号は並び順から自動でつく）
+  # ---------------------------------------------------------
+  - name: rules
+    label: 定款
+    type: file
+    path: _data/rules.yml
+    format: yaml
+    fields:
+      - name: enforced
+        label: 施行日
+        type: string
+        required: true
+        description: 例：2026年4月1日
+      - name: updated
+        label: 最終改定日
+        type: date
+        required: true
+        description: 総会などで改定したら、この日付も直してください。ページに「◯年◯月◯日 改定」と出ます。
+      - name: intro
+        label: はじめの一文
+        type: text
+      - name: chapters
+        label: 章
+        type: object
+        description: 上から順に「第1章」「第2章」…と番号が自動でつきます。条の番号も、全部の章を通して自動でつきます（第1条、第2条…）。
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{fields.title}"
+        fields:
+          - name: title
+            label: 章の名前
+            type: string
+            required: true
+            description: 「第◯章」は自動でつくので、名前だけ入れます。例：総則
+          - name: articles
+            label: 条
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{fields.title}"
+            fields:
+              - name: title
+                label: 条の名前
+                type: string
+                required: true
+                description: 「第◯条」は自動でつくので、名前だけ入れます。例：名称
+              - name: body
+                label: 本文
+                type: rich-text
+      - name: supplementary
+        label: 附則
+        type: rich-text
+
+  # ---------------------------------------------------------
+  # ルールブック（定款ページの下に出る、日常の活動ルール）
+  # ---------------------------------------------------------
+  - name: rulebook
+    label: ルールブック
+    type: file
+    path: _data/rulebook.yml
+    format: yaml
+    fields:
+      - name: updated
+        label: 最終更新日
+        type: date
+        required: true
+      - name: intro
+        label: はじめの一文
+        type: text
+      - name: note
+        label: 注意書き
+        type: text
+      - name: groups
+        label: 項目
+        type: object
+        description: ページでは、項目ごとに押すと開く形で並びます。
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{fields.title}"
+        fields:
+          - name: icon
+            label: アイコン
+            type: select
+            default: 本
+            options:
+              values: [カレンダー, カメラ, 握手, 工具, 学生, 音符, 盾, 本, 吹き出し, ハート]
+          - name: title
+            label: 項目の名前
+            type: string
+            required: true
+          - name: sections
+            label: 小見出しと中身
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{fields.heading}"
+            fields:
+              - name: heading
+                label: 小見出し
+                type: string
+              - name: body
+                label: 中身
+                type: rich-text
+                description: 箇条書きのボタンで、1行ずつのルールにできます。
+      - name: footer
+        label: いちばん下の一文
+        type: string
